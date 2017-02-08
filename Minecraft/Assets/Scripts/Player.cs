@@ -4,19 +4,24 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
+    public int Energy = 3;
+    public float EnergyGainRate = 2.0f;
+    public float EnergyTimer = 0;
     public float ReachDistance = 3.0f;
     public LayerMask ReachMask;
 
-    public float ExplosivePower = 3.0f;
+    public int StrongCost = 5;
+    public int WeakCost = 3;
 
     public Texture Crosshair = null;
     public float CrosshairScale = 1.0f;
 
-    public GameObject ExplodeEffect = null;
+    private VoxelType CurrentBlock = VoxelType.Weak;
 
 	void Start ()
     {
-	}
+        EnergyTimer = EnergyGainRate;
+    }
 	
 	void Update ()
     {
@@ -30,27 +35,42 @@ public class Player : MonoBehaviour
             else if (Input.GetButtonDown("Fire2"))
             {
                 Ray CrosshairRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-                PlaceBlock(CrosshairRay, VoxelType.Dirt);
+                PlaceBlock(CrosshairRay, CurrentBlock);
             }
             else if (Input.GetButtonDown("Fire3"))
             {
-                Ray CrosshairRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-                ExplodeBlock(CrosshairRay, ExplosivePower);
+                if (CurrentBlock == VoxelType.Weak)
+                {
+                    CurrentBlock = VoxelType.Strong;
+                }
+                else
+                {
+                    CurrentBlock = VoxelType.Weak;
+                }
             }
         }
+        GainEnergy();
 	}
 
     void AttackBlock(Ray ray)
-    {
+    { 
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo, ReachDistance, ReachMask))
         {
             if (hitInfo.collider is BoxCollider)
             {
                 Voxel voxel = VoxelWorld.Inst.GetVoxelFromCollider(hitInfo.collider as BoxCollider);
+                if (voxel.TypeDef.Type != VoxelType.Weak && voxel.TypeDef.Type != VoxelType.Strong)
+                {
+                    return;
+                }
                 if (voxel != null)
                 {
-                    voxel.TakeDamage(1);
+                    if (Energy > 0)
+                    {
+                        voxel.TakeDamage(1);
+                        Energy -= 1;
+                    }
                 }
             }
         }
@@ -58,6 +78,11 @@ public class Player : MonoBehaviour
 
     void PlaceBlock(Ray ray, VoxelType type)
     {
+        
+        if (type != VoxelType.Strong && type != VoxelType.Weak)
+        {
+            return;
+        }
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo, ReachDistance, ReachMask))
         {
@@ -86,8 +111,24 @@ public class Player : MonoBehaviour
                         Voxel placeVoxel = VoxelWorld.Inst.GetVoxel(placePos);
                         if (placeVoxel.TypeDef.Type == VoxelType.Air)
                         {
-                            placeVoxel.SetType(type);
-                            VoxelWorld.Inst.Refresh();
+                            if (type == VoxelType.Strong)
+                            {
+                                if (Energy >= StrongCost)
+                                {
+                                    placeVoxel.SetType(type);
+                                    VoxelWorld.Inst.Refresh();
+                                    Energy -= StrongCost;
+                                }
+                            }
+                            else
+                            {
+                                if (Energy >= WeakCost)
+                                {
+                                    placeVoxel.SetType(type);
+                                    VoxelWorld.Inst.Refresh();
+                                    Energy -= WeakCost;
+                                }
+                            }
                         }
                     }
                 }
@@ -95,19 +136,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    void ExplodeBlock(Ray ray, float radius)
+    void GainEnergy()
     {
-        RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo, ReachDistance, ReachMask))
+        EnergyTimer -= Time.deltaTime;
+        if (EnergyTimer <= 0)
         {
-            if (hitInfo.collider is BoxCollider)
-            {
-                List<Voxel> voxels = VoxelWorld.Inst.GetVoxels(hitInfo.point, radius);
-                voxels.ForEach(vox => vox.SetType(VoxelType.Air));
-                VoxelWorld.Inst.Refresh();
-
-                GameObject.Instantiate(ExplodeEffect, hitInfo.point, Quaternion.identity);
-            }
+            Energy += 1;
+            EnergyTimer = EnergyGainRate;
         }
     }
 
@@ -118,5 +153,6 @@ public class Player : MonoBehaviour
         float halfWidth = Crosshair.width * 0.5f * CrosshairScale;
         float halfHeight = Crosshair.height * 0.5f * CrosshairScale;
         GUI.DrawTexture(new Rect(cx - halfWidth, cy - halfHeight, Crosshair.width * CrosshairScale, Crosshair.height * CrosshairScale), Crosshair);
+        GUI.Label(new Rect(0, 0, 100, 100), Energy.ToString());
     }
 }

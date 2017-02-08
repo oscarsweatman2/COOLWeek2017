@@ -26,11 +26,14 @@ public class Voxel
 
     public void TakeDamage(int damage)
     {
-        Health -= damage;
-        if (Health <= 0)
+        if (TypeDef.Type == VoxelType.Weak || TypeDef.Type == VoxelType.Strong)
         {
-            SetType(VoxelType.Air);
-            VoxelWorld.Inst.Refresh();
+            Health -= damage;
+            if (Health <= 0)
+            {
+                SetType(VoxelType.Air);
+                VoxelWorld.Inst.Refresh();
+            }
         }
     }
 

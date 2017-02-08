@@ -27,6 +27,8 @@ public class VoxelWorld : MonoBehaviour
     public VoxelTypeDefinition VoxelTypeDefGrass    = new VoxelTypeDefinition(VoxelType.Grass, 1, true, true);
     public VoxelTypeDefinition VoxelTypeDefDirt     = new VoxelTypeDefinition(VoxelType.Dirt, 1, true, true);
     public VoxelTypeDefinition VoxelTypeDefStone    = new VoxelTypeDefinition(VoxelType.Stone, 2, true, true);
+    public VoxelTypeDefinition VoxelTypeDefWeak     = new VoxelTypeDefinition(VoxelType.Weak, 1, true, true);
+    public VoxelTypeDefinition VoxelTypeDefStrong   = new VoxelTypeDefinition(VoxelType.Strong, 1, true, true);
 
     public Dictionary<VoxelType, VoxelTypeDefinition> VoxelTypeDefs;
 
@@ -51,6 +53,8 @@ public class VoxelWorld : MonoBehaviour
         VoxelTypeDefs[VoxelType.Grass] = VoxelTypeDefGrass;
         VoxelTypeDefs[VoxelType.Dirt] = VoxelTypeDefDirt;
         VoxelTypeDefs[VoxelType.Stone] = VoxelTypeDefStone;
+        VoxelTypeDefs[VoxelType.Weak] = VoxelTypeDefWeak;
+        VoxelTypeDefs[VoxelType.Strong] = VoxelTypeDefStrong;
 
         VoxelTypeDefs.Values.ToList().ForEach(def => def.RecalcUVSet());
 
