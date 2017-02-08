@@ -31,7 +31,7 @@ public class Minion : MonoBehaviour
         m_Jumping = false;
         Target = get_tower().transform;
 	}
-
+    // targets tower
     towerScript get_tower()
     {
         towerScript result = null;
@@ -63,7 +63,7 @@ public class Minion : MonoBehaviour
         towerScript closesttower = get_tower();
 
 
-
+        //distance to tower that would destroy sheep
         float closesttower_distance = (closesttower.transform.position - this.transform.position).magnitude;
 
         if (closesttower_distance < 2)
