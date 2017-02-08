@@ -9,46 +9,47 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1505386399768610}
+  m_RootGameObject: {fileID: 1550909844120618}
   m_IsPrefabParent: 1
---- !u!1 &1505386399768610
+--- !u!1 &1550909844120618
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4585129583491564}
-  - component: {fileID: 33489332281659310}
-  - component: {fileID: 65003011860978990}
-  - component: {fileID: 23831458764818138}
-  - component: {fileID: 114240427697263668}
+  - component: {fileID: 4922844513496514}
+  - component: {fileID: 33229987829002868}
+  - component: {fileID: 136506133208417776}
+  - component: {fileID: 23496930134788856}
+  - component: {fileID: 114133243481639490}
+  - component: {fileID: 114385682729500630}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: towerNeutral
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4585129583491564
+--- !u!4 &4922844513496514
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1505386399768610}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.549, z: 0}
+  m_GameObject: {fileID: 1550909844120618}
+  m_LocalRotation: {x: 0, y: 0.57429093, z: 0, w: 0.8186513}
+  m_LocalPosition: {x: 11.956891, y: 7.98, z: 12.384492}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23831458764818138
+--- !u!23 &23496930134788856
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1505386399768610}
+  m_GameObject: {fileID: 1550909844120618}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -74,33 +75,57 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &33489332281659310
+--- !u!33 &33229987829002868
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1505386399768610}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65003011860978990
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1505386399768610}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114240427697263668
+  m_GameObject: {fileID: 1550909844120618}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114133243481639490
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1505386399768610}
+  m_GameObject: {fileID: 1550909844120618}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc252542c2d72a24fb1c62d19abdbe27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_allegiance: 0
+  m_isMine: 0
+  m_isNeutral: 0
+  m_isTheirs: 0
+  m_completecontroll: 0
+  m_completeTheirs: 0
+  m_minionSpawnNumber: 0
+  m_minionSpawnRate: 5
+  m_spawnMinion: {fileID: 0}
+  spawnTimer: 2
+  spawnCount: 1
+--- !u!114 &114385682729500630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1550909844120618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fcb07fb373ffe545ae0020b882afa44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Padding: 1
+--- !u!136 &136506133208417776
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1550909844120618}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}

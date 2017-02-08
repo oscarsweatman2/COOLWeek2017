@@ -285,4 +285,29 @@ public class VoxelWorld : MonoBehaviour
         VoxelWorldChunk chunk = collider.gameObject.GetComponent<VoxelWorldChunk>();
         return chunk.GetVoxelFromCollider(collider);
     }
+
+    public Vector3 GroundClamp(Vector3 pos)
+    {
+        Vector3 retVal = pos;
+
+        int x = (int)pos.x;
+        int z = (int)pos.z;
+
+        retVal.y = VoxelHeight;
+
+        for (int i = 0; i < VoxelHeight; ++i)
+        {
+            if (IsVoxelWorldIndexValid(x, i, z))
+            {
+                Voxel voxel = GetVoxel(x, i, z);
+                if (voxel.TypeDef.Type == VoxelType.Air)
+                {
+                    retVal.y = voxel.Position.Y;
+                    break;
+                }
+            }
+        }
+
+        return retVal;
+    }
 }

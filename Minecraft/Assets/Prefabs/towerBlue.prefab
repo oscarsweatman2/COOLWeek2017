@@ -23,8 +23,9 @@ GameObject:
   - component: {fileID: 136369427132836268}
   - component: {fileID: 23818550859327946}
   - component: {fileID: 114470935776621530}
+  - component: {fileID: 114397192133280390}
   m_Layer: 0
-  m_Name: tower
+  m_Name: towerBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,8 +37,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1952829039133460}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 44.198555, y: 23.39554, z: 38.595875}
+  m_LocalRotation: {x: 0, y: 0.57429093, z: 0, w: 0.8186513}
+  m_LocalPosition: {x: 11.956891, y: 7.98, z: 12.384492}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -56,7 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 66143674bd3368c4087083c6f1749325, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,6 +82,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1952829039133460}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114397192133280390
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1952829039133460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fcb07fb373ffe545ae0020b882afa44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Padding: 1
 --- !u!114 &114470935776621530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -93,13 +106,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_allegiance: 0
-  m_ismine: 0
-  m_isneutral: 0
-  m_istheirs: 0
+  m_isMine: 0
+  m_isNeutral: 0
+  m_isTheirs: 0
   m_completecontroll: 0
-  m_completetheirs: 0
+  m_completeTheirs: 0
   m_minionSpawnNumber: 0
-  m_minionSpawnRate: 0
+  m_minionSpawnRate: 5
+  m_spawnMinion: {fileID: 114424601941760982, guid: 0a3c298c9b06cf54a89766a51ed656da,
+    type: 2}
+  spawnTimer: 2
+  spawnCount: 1
 --- !u!136 &136369427132836268
 CapsuleCollider:
   m_ObjectHideFlags: 1
