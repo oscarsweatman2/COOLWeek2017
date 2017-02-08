@@ -5,103 +5,112 @@ using UnityEngine;
 public class towerScript : MonoBehaviour
 {
     public int m_allegiance;
-    public bool m_ismine;
-    public bool m_isneutral;
-    public bool m_istheirs;
+    public bool m_isMine;
+    public bool m_isNeutral;
+    public bool m_isTheirs;
     public bool m_completecontroll;
-    public bool m_completetheirs;
+    public bool m_completeTheirs;
     public int m_minionSpawnNumber;
-    public int m_minionSpawnRate;
+    public int m_minionSpawnRate = 5;
     // Use this for initialization
+    public Minion m_spawnMinion;
+    public float spawnTimer = 2;
+    public int spawnCount = 1;
+
     void Start()
     {
-        if (m_allegiance > -2 && m_allegiance < 2)
-        {
-            m_isneutral = true;
+        if (m_allegiance >= -2 && m_allegiance <= 2) {
+            m_isNeutral = true;
         }
-        else
-        {
-            m_isneutral = false;
+        else {
+            m_isNeutral = false;
 
         }
-        if (m_allegiance < -2)
-        {
-            m_istheirs = true;
+        if (m_allegiance < -2) {
+            m_isTheirs = true;
         }
-        else
-        {
-            m_istheirs = false;
+        else {
+            m_isTheirs = false;
 
         }
-        if (m_allegiance > 2)
-        {
-            m_ismine = true;
+        if (m_allegiance > 2) {
+            m_isMine = true;
         }
-        else
-        {
-            m_ismine = false;
+        else {
+            m_isMine = false;
 
         }
-        if (m_allegiance == 5)
-        {
+        if (m_allegiance == 5) {
             m_completecontroll = true;
         }
-        else
-        {
+        else {
             m_completecontroll = false;
 
         }
+        if (m_allegiance == -5) {
+            m_completeTheirs = true;
+        }
+        else {
+            m_completeTheirs = false;
+        }
+        spawnTimer = m_minionSpawnRate;
     }
     // Update is called once per frame
     void Update()
     {
-        if (m_allegiance > -2 && m_allegiance < 2)
-        {
-            m_isneutral = true;
+        if (m_allegiance >= -2 && m_allegiance <= 2) {
+            m_isNeutral = true;
         }
-        else
-        {
-            m_isneutral = false;
+        else {
+            m_isNeutral = false;
 
         }
-        if (m_allegiance < -2)
-        {
-            m_istheirs = true;
+        if (m_allegiance < -2) {
+            m_isTheirs = true;
         }
-        else
-        {
-            m_istheirs = false;
+        else {
+            m_isTheirs = false;
 
         }
-        if (m_allegiance > 2)
-        {
-            m_ismine = true;
+        if (m_allegiance > 2) {
+            m_isMine = true;
         }
-        else
-        {
-            m_ismine = false;
+        else {
+            m_isMine = false;
 
         }
-        if (m_allegiance == 5)
-        {
+        if (m_allegiance == 5) {
             m_completecontroll = true;
         }
-        else
-        {
+        else {
             m_completecontroll = false;
 
         }
-        if (m_allegiance == 5)
-        {
-            m_completetheirs = true;
+        if (m_allegiance == -5) {
+            m_completeTheirs = true;
         }
-        else
+        else {
+            m_completeTheirs = false;
+        }
+        spawnTimer -= Time.deltaTime;
+        if (spawnTimer <= 0)
         {
-            m_completetheirs = false;
+            
+            Debug.Log("Wave " + spawnCount + " Spawned!");
+            spawnTimer = m_minionSpawnRate;
+            for (int i = 0; i < 5; i++) {
+                int minionNum = GameObject.FindObjectsOfType<Minion>().Length;
+                if (minionNum < 10) {
+                    GameObject.Instantiate(m_spawnMinion, this.transform.position + new Vector3(Random.Range(1, 10), Random.Range(1, 5), 0), Quaternion.identity);
+                }
+            }
+            spawnCount += 1;
+            if (spawnCount % 2 == 0)
+            {
+                Debug.Log("Tower level up!");
+            }
 
         }
-
-
     }
-
+    
 }
