@@ -62,7 +62,6 @@ public class Minion : MonoBehaviour
 
         towerScript closesttower = get_tower();
 
-
         //distance to tower that would destroy sheep
         float closesttower_distance = (closesttower.transform.position - this.transform.position).magnitude;
 
@@ -71,15 +70,6 @@ public class Minion : MonoBehaviour
             GameObject.Destroy(this.gameObject);
 
         }
-
-
-
-
-
-
-
-
-
 
         // the jump state needs to read here to make sure it is not missed
         if (!m_Jump)
@@ -180,13 +170,15 @@ public class Minion : MonoBehaviour
             m_Input.Normalize();
         }
 
-        // handle speed change to give an fov kick
-        // only if the player is going to a run, is running and the fovkick is to be used
-        //if (m_IsWalking != waswalking && m_UseFovKick && m_CharacterController.velocity.sqrMagnitude > 0)
-        //{
-        //    StopAllCoroutines();
-        //    StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
-        //}
+        /*
+         //handle speed change to give an fov kick
+         only if the player is going to a run, is running and the fovkick is to be used
+        if (m_IsWalking != waswalking && m_UseFovKick && m_CharacterController.velocity.sqrMagnitude > 0)
+        {
+            StopAllCoroutines();
+            StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
+        }
+        */
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -204,21 +196,23 @@ public class Minion : MonoBehaviour
         }
         body.AddForceAtPosition(m_CharacterController.velocity * 0.1f, hit.point, ForceMode.Impulse);
     }
-    //private void ProgressStepCycle(float speed)
-    //{
-    //    if (m_CharacterController.velocity.sqrMagnitude > 0 && (m_Input.x != 0 || m_Input.y != 0))
-    //    {
-    //        m_StepCycle += (m_CharacterController.velocity.magnitude + (speed * (m_IsWalking ? 1f : m_RunstepLenghten))) *
-    //                     Time.fixedDeltaTime;
-    //    }
+    /*
+    private void ProgressStepCycle(float speed)
+    {
+        if (m_CharacterController.velocity.sqrMagnitude > 0 && (m_Input.x != 0 || m_Input.y != 0))
+        {
+            m_StepCycle += (m_CharacterController.velocity.magnitude + (speed * (m_IsWalking ? 1f : m_RunstepLenghten))) *
+                         Time.fixedDeltaTime;
+        }
 
-    //    if (!(m_StepCycle > m_NextStep))
-    //    {
-    //        return;
-    //    }
+        if (!(m_StepCycle > m_NextStep))
+        {
+            return;
+        }
 
-    //    m_NextStep = m_StepCycle + m_StepInterval;
+        m_NextStep = m_StepCycle + m_StepInterval;
 
-    //    PlayFootStepAudio();
-    //}
+        PlayFootStepAudio();
+    }
+    */
 }
