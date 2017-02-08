@@ -96,7 +96,7 @@ public class towerScript : MonoBehaviour
         if (spawnTimer <= 0)
         {
             
-            Debug.Log("Wave " + spawnCount + " Spawned!");
+            //Debug.Log("Wave " + spawnCount + " Spawned!");
             spawnTimer = m_minionSpawnRate;
             for (int i = 0; i < 5; i++) {
                 int minionNum = GameObject.FindObjectsOfType<Minion>().Length;
@@ -107,7 +107,7 @@ public class towerScript : MonoBehaviour
             spawnCount += 1;
             if (spawnCount % 2 == 0)
             {
-                Debug.Log("Tower level up!");
+                //Debug.Log("Tower level up!");
             }
 
         }
