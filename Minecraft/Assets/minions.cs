@@ -5,11 +5,7 @@ using System.Collections;
 public class Entity : MonoBehaviour
 {
     [SerializeField]
-    private bool m_IsWalking;
-    [SerializeField]
     private float m_WalkSpeed;
-    [SerializeField]
-    private float m_RunSpeed;
     [SerializeField]
     private float m_TurnSpeed;
     [SerializeField]
@@ -33,11 +29,34 @@ public class Entity : MonoBehaviour
     {
         m_CharacterController = GetComponent<CharacterController>();
         m_Jumping = false;
+        Target = get_tower().transform;
 	}
-	
+    towerneutral get_tower()
+     
+    {
+        towerneutral result = null;
+        float closest_distance = 50000000;
+        Vector3 myposition = transform.position;
+        
+        towerneutral[] towerlist = FindObjectsOfType(typeof(towerneutral)) as towerneutral[];
+        foreach(towerneutral obj in towerlist)
+        {
+           if (obj.m_completecontroll == false)
+            {
+                Vector3 towerpos = obj.transform.position;
+               float distance = Vector3.Distance(myposition, towerpos);
+                if(distance < closest_distance)
+                {
+                    closest_distance = distance;
+                    result = obj;
+                }
+            }
+        }
+        return result;
+    }
 	void Update ()
     {
-        //RotateView();
+        //RotateView(); 
         Vector3 targetPos = Target != null ? Target.position : Vector3.zero;
         TurnTowardTarget(targetPos);
 
@@ -127,15 +146,13 @@ public class Entity : MonoBehaviour
         float horizontal = 0.0f;// CrossPlatformInputManager.GetAxis("Horizontal");
         float vertical = 1.0f; // CrossPlatformInputManager.GetAxis("Vertical");
 
-        bool waswalking = m_IsWalking;
-
+      
 #if !MOBILE_INPUT
         // On standalone builds, walk/run speed is modified by a key press.
         // keep track of whether or not the character is walking or running
-        m_IsWalking = true; // !Input.GetKey(KeyCode.LeftShift);
+        // !Input.GetKey(KeyCode.LeftShift);
 #endif
         // set the desired speed to be walking or running
-        speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
         m_Input = new Vector2(horizontal, vertical);
 
         // normalize input if it exceeds 1 in combined length:
@@ -151,6 +168,7 @@ public class Entity : MonoBehaviour
         //    StopAllCoroutines();
         //    StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
         //}
+        speed = 10;
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
