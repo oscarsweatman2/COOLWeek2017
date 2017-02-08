@@ -31,15 +31,15 @@ public class Entity : MonoBehaviour
         m_Jumping = false;
         Target = get_tower().transform;
 	}
-    towerneutral get_tower()
+    towerScript get_tower()
      
     {
-        towerneutral result = null;
+        towerScript result = null;
         float closest_distance = 50000000;
         Vector3 myposition = transform.position;
-        
-        towerneutral[] towerlist = FindObjectsOfType(typeof(towerneutral)) as towerneutral[];
-        foreach(towerneutral obj in towerlist)
+
+        towerScript[] towerlist = FindObjectsOfType(typeof(towerScript)) as towerScript[];
+        foreach(towerScript obj in towerlist)
         {
            if (obj.m_completecontroll == false)
             {

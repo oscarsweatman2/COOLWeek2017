@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class towerneutral : MonoBehaviour
+public class towerScript : MonoBehaviour
 {
     public int m_allegiance;
     public bool m_ismine;
@@ -10,6 +10,8 @@ public class towerneutral : MonoBehaviour
     public bool m_istheirs;
     public bool m_completecontroll;
     public bool m_completetheirs;
+    public int m_minionSpawnNumber;
+    public int m_minionSpawnRate;
     // Use this for initialization
     void Start()
     {
@@ -50,8 +52,6 @@ public class towerneutral : MonoBehaviour
 
         }
     }
-
-
     // Update is called once per frame
     void Update()
     {
