@@ -685,7 +685,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 28f6b76fcff54254fb793a833aa95b87, type: 2}
+  - {fileID: 2100000, guid: b269988b93e54f94a9c103fa5803aaa5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -870,7 +870,7 @@ Prefab:
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: HeightMap
       value: 
-      objectReference: {fileID: 2800000, guid: 7878f300693b9a34d8e5d3d6b53cf9eb, type: 3}
+      objectReference: {fileID: 2800000, guid: a56e3cf269d4d434bab7c947d8f065cf, type: 3}
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: ChunksHigh
       value: 1
