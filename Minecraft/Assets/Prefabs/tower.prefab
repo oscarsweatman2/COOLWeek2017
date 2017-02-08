@@ -89,9 +89,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1952829039133460}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 693a8fc9c42d2dd4d9d6a078e6aee613, type: 3}
+  m_Script: {fileID: 11500000, guid: dc252542c2d72a24fb1c62d19abdbe27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_allegiance: 0
+  m_ismine: 0
+  m_isneutral: 0
+  m_istheirs: 0
+  m_completecontroll: 0
+  m_completetheirs: 0
+  m_minionSpawnNumber: 0
+  m_minionSpawnRate: 0
 --- !u!136 &136369427132836268
 CapsuleCollider:
   m_ObjectHideFlags: 1
