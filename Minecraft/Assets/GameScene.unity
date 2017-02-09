@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465785, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -559,7 +559,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f3a8e2454e15de48bf024094c2bf84a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Energy: 3
+  Energy: 300000000
+  EnergyCap: 2147483647
   EnergyGainRate: 2
   EnergyTimer: 0
   ReachDistance: 8
@@ -573,6 +574,9 @@ MonoBehaviour:
   TowerBufferDist: 5
   placeSound: {fileID: 0}
   destroySound: {fileID: 0}
+  emptyEnergySound: {fileID: 0}
+  fullEnergySound: {fileID: 0}
+  MinionSounds: []
 --- !u!1001 &1966992199
 Prefab:
   m_ObjectHideFlags: 0
