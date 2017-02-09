@@ -714,6 +714,7 @@ MonoBehaviour:
   destroySound: {fileID: 8300000, guid: b8a8339374bce9b4d86d0c38e338c77f, type: 3}
   emptyEnergySound: {fileID: 8300000, guid: 8a933de692047f14aa56166c3c31d758, type: 3}
   fullEnergySound: {fileID: 8300000, guid: 8e31f25899f0dbe4e9c2a8caf06a08a8, type: 3}
+  MinionSounds: []
 --- !u!1001 &1966992199
 Prefab:
   m_ObjectHideFlags: 0

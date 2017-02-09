@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     public AudioClip destroySound;
     public AudioClip emptyEnergySound;
     public AudioClip fullEnergySound;
+    public AudioClip[] MinionSounds;
     private AudioSource audSource;
 
     void Start()
@@ -37,12 +38,12 @@ public class Player : MonoBehaviour
     {
         if (Camera.main != null)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire2"))
             {
                 Ray CrosshairRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
                 AttackBlock(CrosshairRay);
             }
-            else if (Input.GetButtonDown("Fire2"))
+            else if (Input.GetButtonDown("Fire1"))
             {
                 Ray CrosshairRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
                 PlaceBlock(CrosshairRay, CurrentBlock);
@@ -201,6 +202,22 @@ public class Player : MonoBehaviour
         audSource.clip = fullEnergySound;
         audSource.Play();
     }
+
+    /*void PlayMinionSounds()
+    {
+        if (audSource.isPlaying == false)
+        {
+            if (MinionSounds.Length == 0)
+            {
+                return;
+            }
+            int n = Random.Range(0, MinionSounds.Length - 1);
+            audSource.clip = MinionSounds[n];
+            audSource.Play();
+            MinionSounds[n] = MinionSounds[0];
+            MinionSounds[0] = audSource.clip;
+        }
+    }*/
 
     void OnGUI()
     {
