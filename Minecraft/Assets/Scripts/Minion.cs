@@ -14,7 +14,8 @@ public class Minion : MonoBehaviour
     private float m_StickToGroundForce;
     [SerializeField]
     private float m_GravityMultiplier;
-
+    
+    public bool miniononplayerteam;
     private bool m_Jump;
     private Vector2 m_Input;
     private Vector3 m_MoveDir = Vector3.zero;
@@ -30,6 +31,7 @@ public class Minion : MonoBehaviour
         m_CharacterController = GetComponent<CharacterController>();
         m_Jumping = false;
         Target = get_tower().transform;
+
 	}
     // targets tower
     towerScript get_tower()
@@ -39,16 +41,50 @@ public class Minion : MonoBehaviour
         Vector3 myposition = transform.position;
 
         towerScript[] towerlist = FindObjectsOfType(typeof(towerScript)) as towerScript[];
-        foreach(towerScript obj in towerlist)
+        foreach(towerScript tower in towerlist)
         {
-           if (obj.m_completecontroll == false)
+            bool opponettower = true;
+            bool toweronplayerteam = tower.m_allegiance > 0;
+            bool toweronneutralteam = tower.m_allegiance == 0;
+            bool toweronenemyteam = tower.m_allegiance < 0;
+            //tells mionion if on tower team
+            if (toweronplayerteam)
             {
-                Vector3 towerpos = obj.transform.position;
+                if (miniononplayerteam)
+                {
+                    opponettower = false;
+                }
+                else
+                {
+                    opponettower = true;
+                }
+            }
+            else if (toweronenemyteam)
+            {
+                if (miniononplayerteam)
+                {
+                    opponettower = true;
+                }
+                else
+                {
+                    opponettower = false;
+                }
+
+            }
+            else
+            {
+                opponettower = true;
+            }
+
+
+            if (opponettower == true)
+            {
+                Vector3 towerpos = tower.transform.position;
                float distance = Vector3.Distance(myposition, towerpos);
                 if(distance < closest_distance)
                 {
                     closest_distance = distance;
-                    result = obj;
+                    result = tower;
                 }
             }
         }
