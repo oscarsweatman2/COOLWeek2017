@@ -35,7 +35,11 @@ public class Minion : MonoBehaviour
     {
         m_CharacterController = GetComponent<CharacterController>();
         m_Jumping = false;
-        Target = get_tower().transform;
+        towerScript closestTower = get_tower();
+        if (closestTower != null)
+        {
+            Target = closestTower.transform;
+        }
 
 	}
     // targets tower
@@ -49,9 +53,9 @@ public class Minion : MonoBehaviour
         foreach(towerScript tower in towerlist)
         {
             bool opponettower = true;
-            bool toweronplayerteam = tower.m_allegiance == Allegiance.BLUE;
-            bool toweronneutralteam = tower.m_allegiance == Allegiance.NEUTRAL;
-            bool toweronenemyteam = tower.m_allegiance == Allegiance.RED;
+            bool toweronplayerteam = tower.m_teamAllegiance == Allegiance.BLUE;
+            bool toweronneutralteam = tower.m_teamAllegiance == Allegiance.NEUTRAL;
+            bool toweronenemyteam = tower.m_teamAllegiance == Allegiance.RED;
             //tells mionion if on tower team and targets that tower
             if (toweronplayerteam)
             {

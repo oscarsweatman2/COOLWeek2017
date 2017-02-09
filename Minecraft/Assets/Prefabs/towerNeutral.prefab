@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1550909844120618}
   m_LocalRotation: {x: 0, y: 0.57429093, z: 0, w: 0.8186513}
-  m_LocalPosition: {x: 11.956891, y: 7.98, z: 12.384492}
+  m_LocalPosition: {x: 39.01, y: 8.7, z: 36.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -93,17 +93,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc252542c2d72a24fb1c62d19abdbe27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_allegiance: 0
-  m_isMine: 0
-  m_isNeutral: 0
-  m_isTheirs: 0
-  m_completecontroll: 0
-  m_completeTheirs: 0
+  m_teamAllegiance: 2
   m_minionSpawnNumber: 0
   m_minionSpawnRate: 5
   m_spawnMinion: {fileID: 0}
   spawnTimer: 2
-  spawnCount: 1
+  spawnCount: 0
+  m_towerArmor: 0
+  levelUpTimer: 0
+  m_levelUpCount: 10
 --- !u!114 &114385682729500630
 MonoBehaviour:
   m_ObjectHideFlags: 1
