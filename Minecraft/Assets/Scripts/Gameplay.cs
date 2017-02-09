@@ -3,64 +3,62 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Gameplay : MonoBehaviour {
-    //variables for time control
-    public float timer = 0;
-    public int minutes = 0;
-    public int seconds = 0;
-
     //MINON CONTROL VARIABLES
-    public int redminon = 0;
-    public int blueminon = 0;
-    public int greyminon = 0;
+    public int redminion = 0;
+    public int blueminion = 0;
+    public int totalminion = 0;
     public int maxred = 70;
     public int maxblue = 70;
-    public int maxgrey = 14;
 
-    /*
     //tower control variables
-    static public int red;
-    static public int blue;
-    static public int netural;
-    */
-
+    public int enemytowercount;
+    public int playertowercount;
+    public int neturaltowercount;
 
     // Use this for initialization
     void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-        //time control variable rules
-        timer += Time.deltaTime;
-        seconds += (int)Time.deltaTime;
-        minutes = (int)timer / 60;
-        seconds = (int)timer % 60;
-        /*
+
+    // Update is called once per frame
+    void Update()
+    {
+        enemytowercount = 0;
+        playertowercount = 0;
+        neturaltowercount = 0;
+
+        redminion = 0;
+        blueminion = 0;
+        totalminion = 0;
+
         towerScript[] towerlist = FindObjectsOfType(typeof(towerScript)) as towerScript[];
-        foreach (towerScript obj in towerlist)
+        foreach (towerScript tower in towerlist)
         {
-            if (obj.m_allegiance > -2 && obj.m_allegiance < 2)
+            if (tower.m_allegiance == 0)
             {
-                netural ++;
+                neturaltowercount++;
             }
-            if (obj.m_allegiance < -2)
+            if (tower.m_allegiance >= 1)
             {
-                red++;
+                playertowercount++;
             }
-            if (obj.m_allegiance > 2)
+            if (tower.m_allegiance <= -1)
             {
-                blue++;
+                enemytowercount++;
             }
         }
-        */
+        Minion[] minionlist = FindObjectsOfType(typeof(Minion)) as Minion[];
+        foreach (Minion minions in minionlist)
+        {
+            totalminion++;
+            if (minions.miniononplayerteam == true)
+            {
+                blueminion++;
+            } else
+            {
+                redminion++;
+            }
+            
+        }
     }
-
-    //GUI here
-    private void OnGUI()
-    {
-        //onscreen timer
-        GUI.Label(new Rect(Screen.width/2-50, 0, 100, 100), minutes+":"+seconds);
-        //GUI.Label(new Rect(Screen.width / 2 - 100, 50, 200, 100), "You:" + blue + "No One" + netural + "Them" + red);
-    } 
 }
