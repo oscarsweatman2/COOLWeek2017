@@ -91,48 +91,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &435836086
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4064529928635320, guid: 0a3c298c9b06cf54a89766a51ed656da, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 6.663807
-      objectReference: {fileID: 0}
-    - target: {fileID: 4064529928635320, guid: 0a3c298c9b06cf54a89766a51ed656da, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4064529928635320, guid: 0a3c298c9b06cf54a89766a51ed656da, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 8.052191
-      objectReference: {fileID: 0}
-    - target: {fileID: 4064529928635320, guid: 0a3c298c9b06cf54a89766a51ed656da, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4064529928635320, guid: 0a3c298c9b06cf54a89766a51ed656da, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4064529928635320, guid: 0a3c298c9b06cf54a89766a51ed656da, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4064529928635320, guid: 0a3c298c9b06cf54a89766a51ed656da, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4064529928635320, guid: 0a3c298c9b06cf54a89766a51ed656da, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 0a3c298c9b06cf54a89766a51ed656da, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &572738551
 Prefab:
   m_ObjectHideFlags: 0
@@ -170,7 +128,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4883827268376838, guid: 09d026873ffc29240befd49ef8d31073, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 09d026873ffc29240befd49ef8d31073, type: 2}
@@ -212,7 +170,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4922844513496514, guid: 15ed270c75be53249a85c5fd473f6b17, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 15ed270c75be53249a85c5fd473f6b17, type: 2}
@@ -415,7 +373,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4807170012983242, guid: 492a170a4ee138e419e34ecbc88669e9, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 492a170a4ee138e419e34ecbc88669e9, type: 2}
@@ -447,7 +405,7 @@ Transform:
   m_Children:
   - {fileID: 873410948}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1713625574
 Prefab:
@@ -570,7 +528,7 @@ Transform:
   m_LocalScale: {x: 8, y: 1, z: 8}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &1738265713
 MeshCollider:
@@ -612,6 +570,9 @@ MonoBehaviour:
   WeakCost: 3
   Crosshair: {fileID: 2800000, guid: d099edcf434167b4682f0abc8eaa4223, type: 3}
   CrosshairScale: 3
+  TowerBufferDist: 5
+  placeSound: {fileID: 0}
+  destroySound: {fileID: 0}
 --- !u!1001 &1966992199
 Prefab:
   m_ObjectHideFlags: 0
@@ -649,7 +610,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 423110, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: ChunkVoxelSize
