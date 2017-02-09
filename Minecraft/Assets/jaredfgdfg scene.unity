@@ -142,7 +142,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4922844513496514, guid: 15ed270c75be53249a85c5fd473f6b17, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 11
+      value: 44.3
       objectReference: {fileID: 0}
     - target: {fileID: 4922844513496514, guid: 15ed270c75be53249a85c5fd473f6b17, type: 2}
       propertyPath: m_LocalPosition.y
@@ -150,7 +150,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4922844513496514, guid: 15ed270c75be53249a85c5fd473f6b17, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 67.4
+      value: 36.4
       objectReference: {fileID: 0}
     - target: {fileID: 4922844513496514, guid: 15ed270c75be53249a85c5fd473f6b17, type: 2}
       propertyPath: m_LocalRotation.x
@@ -560,6 +560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Energy: 3
+  EnergyCap: 50
   EnergyGainRate: 2
   EnergyTimer: 0
   ReachDistance: 8
@@ -573,6 +574,8 @@ MonoBehaviour:
   TowerBufferDist: 5
   placeSound: {fileID: 0}
   destroySound: {fileID: 0}
+  emptyEnergySound: {fileID: 0}
+  fullEnergySound: {fileID: 0}
 --- !u!1001 &1966992199
 Prefab:
   m_ObjectHideFlags: 0
