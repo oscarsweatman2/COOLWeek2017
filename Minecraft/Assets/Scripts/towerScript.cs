@@ -4,105 +4,48 @@ using UnityEngine;
 
 public class towerScript : MonoBehaviour
 {
-    public int m_allegiance;
-    //public bool m_isMine;
-   // public bool m_isNeutral;
-    //public bool m_isTheirs;
-    public bool m_completecontroll;
-    //public bool m_completeTheirs;
+    // Use this for initialization
+    public Minion.Allegiance m_teamAllegiance;
     public int m_minionSpawnNumber;
     public int m_minionSpawnRate = 5;
-  //  public int seconds = 0;
-    // Use this for initialization
     public Minion m_spawnMinion;
-    //public towerScript m_tower;
     public float spawnTimer = 2;
     public int spawnCount = 1;
+    public int m_towerArmor = 5;
     public float levelUpTimer = 2;
-   // public int minutes = 0;
-    public int m_towerArmor = 0;
     public int m_levelUpCount = 1;
 
     void Start()
     {
-        //if (m_allegiance >= -2 && m_allegiance <= 2) {
-        //    m_isNeutral = true;
-        //}
-        //else {
-        //    m_isNeutral = false;
-
-        //}
-        //if (m_allegiance < -2) {
-        //    m_isTheirs = true;
-        //}
-        //else {
-        //    m_isTheirs = false;
-
-        //}
-        //if (m_allegiance > 2) {
-        //    m_isMine = true;
-        //}
-        //else {
-        //    m_isMine = false;
-
-        //}
-        //if (m_allegiance == 5) {
-        //    m_completecontroll = true;
-        //}
-        //else {
-        //    m_completecontroll = false;
-
-        //}
-        //if (m_allegiance == -5) {
-        //    m_completeTheirs = true;
-        //}
-        //else {
-        //    m_completeTheirs = false;
-        //}
         spawnTimer = m_minionSpawnRate;
         levelUpTimer = m_levelUpCount;
-        
     }
+	
     // Update is called once per frame
     void Update()
     {
-        //if (m_allegiance >= -2 && m_allegiance <= 2) {
-        //    m_isNeutral = true;
-        //}
-        //else {
-        //    m_isNeutral = false;
-        //}
-        //if (m_allegiance < -2) {
-        //    m_isTheirs = true;
-        //}
-        //else {
-        //    m_isTheirs = false;
-        //}
-        //if (m_allegiance > 2) {
-        //    m_isMine = true;
-        //}
-        //else {
-        //    m_isMine = false;
-        //}
-        //if (m_allegiance == 5) {
-        //    m_completecontroll = true;
-        //}
-        //else {
-        //    m_completecontroll = false;
-        //}
-        //if (m_allegiance == -5) {
-        //    m_completeTheirs = true;
-        //}
-        //else {
-        //    m_completeTheirs = false;
-        //}
         spawnTimer -= Time.deltaTime;
         
         if (spawnTimer <= 0)
         {
-            
-            //Debug.Log("Wave " + spawnCount + " Spawned!");
             spawnTimer = m_minionSpawnRate;
+			
+            Minion[] minionlist = GameObject.FindObjectsOfType<Minion>();
+            List<Minion> enemyMinionList = new List<Minion>();
+            List<Minion> playerMinionList = new List<Minion>();
+
+            foreach (Minion minion in minionlist)
+            {
+                if(minion.miniononplayerteam)
+                {
+                    playerMinionList.Add(minion);
+                }
+                else
+                {
+                    enemyMinionList.Add(minion);
+                }
+            }
+
             for (int i = 0; i < 5; i++)
             {
                 int minionNum = GameObject.FindObjectsOfType<Minion>().Length;
@@ -114,52 +57,22 @@ public class towerScript : MonoBehaviour
                     }
                 }
             }
-            spawnCount += 1;
-            if (spawnCount % 2 == 0)
-            {
-                //Debug.Log("Tower level up!");
-            }
         }
-        //levelUpTimer += Time.deltaTime;
-        //seconds += (int)Time.deltaTime;
-        //seconds = (int)levelUpTimer % 60;
-        //minutes = (int)levelUpTimer / 60;
+		
         levelUpTimer -= Time.deltaTime;
         if (levelUpTimer <= 0) {
             levelUpTimer = m_levelUpCount;
             levelUp();
         }
-        //if (seconds == 10 && m_allegiance > 0) {
-        //    Debug.Log("Tower level 1");
-        //    GameObject.Instantiate(m_tower, new Vector3(15, 8, 10), Quaternion.identity);
-        //}
-        //if (seconds == 20) {
-        //    Debug.Log("Tower level 2");
-        //}
-        //if (seconds == 30) {
-        //    Debug.Log("Tower level 3");
-        //}
-        //if (seconds == 45) {
-        //    Debug.Log("Tower level 4");
-        //}
-        //if (minutes == 1 ) {
-        //    Debug.Log("Tower level 5");
-        //}
     }
+
     void levelUp()
     {
-        if (m_allegiance > 0)
+        if (m_teamAllegiance != Minion.Allegiance.NEUTRAL)
         {
-            m_allegiance += 5;
+            m_towerArmor += 5;
         }
-        else if (m_allegiance < 0)
-        {
-            m_allegiance -= 5;
-        }
-        else if (m_allegiance == 0)
-        {
-            m_allegiance += 0;
-        }
+
         int curLevel = getCurrentLevel();
         if (curLevel == 1)
         {
@@ -184,6 +97,6 @@ public class towerScript : MonoBehaviour
     }
     public int getCurrentLevel()
     {
-        return Mathf.Abs(m_allegiance / 5);
+        return m_towerArmor / 5 + 1;
     }
 }

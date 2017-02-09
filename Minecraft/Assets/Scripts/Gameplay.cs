@@ -34,15 +34,15 @@ public class Gameplay : MonoBehaviour {
         towerScript[] towerlist = FindObjectsOfType(typeof(towerScript)) as towerScript[];
         foreach (towerScript tower in towerlist)
         {
-            if (tower.m_allegiance == 0)
+            if (tower.m_teamAllegiance == Minion.Allegiance.NEUTRAL)
             {
                 neturaltowercount++;
             }
-            if (tower.m_allegiance >= 1)
+            if (tower.m_teamAllegiance == Minion.Allegiance.BLUE)
             {
                 playertowercount++;
             }
-            if (tower.m_allegiance <= -1)
+            if (tower.m_teamAllegiance == Minion.Allegiance.RED)
             {
                 enemytowercount++;
             }
