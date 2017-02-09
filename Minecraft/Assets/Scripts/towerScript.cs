@@ -107,45 +107,75 @@ public class towerScript : MonoBehaviour
     {
         return m_towerArmor / 5 + 1;
     }
-    void towerHasBeenAttacked(Minion m)
+
+    public int getMaxTowerArmor()
     {
-        //if (m_teamAllegiance == Minion.Allegiance.NEUTRAL)
-        //{
-        //    //switch to the side of the minion that got destroyed
-        //    //if (m.miniononplayerteam == true) 
-        //    //{
-        //    //   this.m_towerArmor += 1;
-        //    //}
-        //    //else if (m.miniononplayerteam == false)
-        //    //{
-        //    //   this.m_towerArmor -= 1;
-        //    //}
-        
-        //}
-        //if (m_teamAllegiance == Minion.Allegiance.BLUE)
-        //{
-        //    if (m.miniononplayerteam == true)
-        //    {
-        //        //friendly minion, do nothing
-        //    }
-        //    else
-        //    {
-        //        //tower lose X armor
-        //        this.m_towerArmor -= 1;
-        //    }
-        //}
-        //if (m_teamAllegiance == Minion.Allegiance.RED)
-        //{
-        //    if (m.miniononplayerteam == true)
-        //    {
-        //        //friendly minion, do nothing
-        //    }
-        //    else
-        //    {
-        //        //tower lose X armor
-        //        this.m_towerArmor += 1;
-        //    }
-        //}
-     
+        return getCurrentLevel() * 5;
+    }
+
+    void handleAllegianceSwap()
+    {
+        m_towerArmor = 0;
+
+        // Change the mesh for the tower based on the current level
+        levelUp();
+    }
+
+    public void towerHasBeenAttacked(Minion m)
+    {
+        // Handle different behaviors based on tower allegiance
+        switch (m_teamAllegiance)
+        {
+            case Minion.Allegiance.NEUTRAL:
+                {
+                    // Any team will reduce the tower's armor
+                    m_towerArmor -= 1;
+
+                    if (m_towerArmor < 0)
+                    {
+                        if (m.miniononplayerteam)
+                        {
+                            m_teamAllegiance = Minion.Allegiance.BLUE;
+                            handleAllegianceSwap();
+                        }
+                        else
+                        {
+                            m_teamAllegiance = Minion.Allegiance.RED;
+                            handleAllegianceSwap();
+                        }
+                    }
+                }
+                break;
+            case Minion.Allegiance.BLUE:
+                {
+                    // Only red minions can reduce a blue tower's armor
+                    if (m.miniononplayerteam == false)
+                    {
+                        m_towerArmor -= 1;
+                    }
+
+                    if (m_towerArmor <= 0)
+                    {
+                        m_teamAllegiance = Minion.Allegiance.RED;
+                        handleAllegianceSwap();
+                    }
+                }
+                break;
+            case Minion.Allegiance.RED:
+                {
+                    // Only blue minions can reduce a red tower's armor
+                    if (m.miniononplayerteam == true)
+                    {
+                        m_towerArmor -= 1;
+                    }
+
+                    if (m_towerArmor <= 0)
+                    {
+                        m_teamAllegiance = Minion.Allegiance.BLUE;
+                        handleAllegianceSwap();
+                    }
+                }
+                break;
+        }
     }
 }
