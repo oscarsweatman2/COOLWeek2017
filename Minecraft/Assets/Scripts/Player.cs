@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour
 {
     public int Energy = 3;
+    public int EnergyMax = 100;
     public int EnergyCap = 50;
     public float EnergyGainRate = 2.0f;
     public float EnergyTimer = 0;

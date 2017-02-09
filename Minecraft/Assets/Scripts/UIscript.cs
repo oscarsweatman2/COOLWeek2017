@@ -1,9 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIscript : MonoBehaviour
 {
+    public Player Player = null;
+    public Gameplay Gameplay = null;
+
     //variables for timer
     public float timer = 0;
     public int minutes = 0;
@@ -26,10 +31,18 @@ public class UIscript : MonoBehaviour
     public bool wongame;
     public bool ongame;
 
+    public RectTransform EnergyMeterMax = null;
+    public RectTransform EnergyMeterCurrent = null;
+    public float EnergyMaxScaleValue = 1.0f;
+
+    public Text TimerText = null;
+
+    public Transform TowerBoxContainer = null;
+
     // Use this for initialization
     void Start()
     {
-
+        EnergyMaxScaleValue = EnergyMeterMax.localScale.y;
     }
 
     // Update is called once per frame
@@ -79,28 +92,83 @@ public class UIscript : MonoBehaviour
         {
             power = play.Energy;
         }
+
+        // Update the energy meter UI
+        float maxEnergyEver = Player.EnergyMax;
+        float curMaxEnergyRatio = Player.EnergyCap / maxEnergyEver;
+        float curEnergyRatio = Player.Energy / maxEnergyEver;
+
+        EnergyMeterMax.localScale = new Vector3(EnergyMeterMax.localScale.x, EnergyMaxScaleValue * curMaxEnergyRatio);
+        EnergyMeterCurrent.localScale = new Vector3(EnergyMeterCurrent.localScale.x, EnergyMaxScaleValue * curEnergyRatio);
+
+        // Update the game timer UI
+        if (seconds >= 10 && minutes >= 10)
+        {
+            TimerText.text = minutes + ":" + seconds;
+        }
+        if (seconds < 10 && minutes >= 10)
+        {
+            TimerText.text = minutes + ":0" + seconds;
+        }
+        if (seconds < 10 && minutes < 10)
+        {
+            TimerText.text = "0" + minutes + ":0" + seconds;
+        }
+        if (seconds > 10 && minutes < 10)
+        {
+            TimerText.text = "0" + minutes + ":" + seconds;
+        }
+
+        // Update tower boxes
+        List<towerScript> towerList = GameObject.FindObjectsOfType<towerScript>().ToList();
+        towerList.Sort((left, right) =>
+        {
+            if (left.m_teamAllegiance == right.m_teamAllegiance)
+            {
+                // Calculate based on tower level
+                return 0;
+            }
+
+            if (left.m_teamAllegiance == Minion.Allegiance.BLUE)
+                return -1;
+            if (right.m_teamAllegiance == Minion.Allegiance.BLUE)
+                return 1;
+
+            if (left.m_teamAllegiance == Minion.Allegiance.NEUTRAL)
+                return -1;
+            if (right.m_teamAllegiance == Minion.Allegiance.NEUTRAL)
+                return 1;
+
+            return 0;
+        });
+
+        int towerIndex = 0;
+        foreach (towerScript tower in towerList)
+        {
+            Transform towerBoxTransform = TowerBoxContainer.FindChild("TowerBox (" + towerIndex++ + ")");
+            if (towerBoxTransform)
+            {
+                RawImage towerBoxImage = towerBoxTransform.GetComponent<RawImage>();
+                if (towerBoxImage)
+                {
+                    Color towerColor = Color.grey;
+                    if (tower.m_teamAllegiance == Minion.Allegiance.BLUE)
+                    {
+                        towerColor = Color.Lerp(Color.grey, Color.blue, tower.m_towerArmor / 25.0f);
+                    }
+                    if (tower.m_teamAllegiance == Minion.Allegiance.RED)
+                    {
+                        towerColor = Color.Lerp(Color.grey, Color.red, tower.m_towerArmor / 25.0f);
+                    }
+                    towerBoxImage.color = towerColor;
+                }
+            }
+        }
     }
 
     //GUI here
     private void OnGUI()
     {
-        //onscreen timer code
-        if (seconds >= 10 && minutes >= 10)
-        {
-            GUI.Label(new Rect(Screen.width / 2 - 50, 0, 100, 100), minutes + ":" + seconds);
-        }
-        if (seconds < 10 && minutes >= 10)
-        {
-            GUI.Label(new Rect(Screen.width / 2 - 50, 0, 100, 100), minutes + ":0" + seconds);
-        }
-        if (seconds < 10 && minutes < 10)
-        {
-            GUI.Label(new Rect(Screen.width / 2 - 50, 0, 100, 100), "0" + minutes + ":0" + seconds);
-        }
-        if (seconds > 10 && minutes < 10)
-        {
-            GUI.Label(new Rect(Screen.width / 2 - 50, 0, 100, 100), "0" + minutes + ":" + seconds);
-        }
 
         //onscreen towercount (temporary)
         GUI.Label(new Rect(Screen.width / 2 - 150, 30, 500, 100), "Enemy: " + enemytowers + " Netural: " + neturaltowers + " Yours: " + playertowers);
