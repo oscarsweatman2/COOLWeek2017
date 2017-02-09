@@ -524,6 +524,11 @@ Prefab:
       propertyPath: m_levelUpCount
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114500955392545032, guid: 3cc42a680acd31c4ea0a3858bbf9a2e2,
+        type: 2}
+      propertyPath: m_towerArmor
+      value: -5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3cc42a680acd31c4ea0a3858bbf9a2e2, type: 2}
   m_IsPrefabParent: 0
@@ -648,6 +653,9 @@ MonoBehaviour:
   WeakCost: 3
   Crosshair: {fileID: 2800000, guid: d099edcf434167b4682f0abc8eaa4223, type: 3}
   CrosshairScale: 3
+  TowerBufferDist: 5
+  placeSound: {fileID: 0}
+  destroySound: {fileID: 0}
 --- !u!1001 &1966992199
 Prefab:
   m_ObjectHideFlags: 0

@@ -96,7 +96,10 @@ MonoBehaviour:
   m_teamAllegiance: 2
   m_minionSpawnNumber: 0
   m_minionSpawnRate: 5
-  m_spawnMinion: {fileID: 0}
+  m_blueMinion: {fileID: 114424601941760982, guid: 0a3c298c9b06cf54a89766a51ed656da,
+    type: 2}
+  m_redMinion: {fileID: 114477760763718258, guid: 70acca32c74b2494eb978dbb2bab9bc1,
+    type: 2}
   spawnTimer: 2
   spawnCount: 0
   m_towerArmor: 0
