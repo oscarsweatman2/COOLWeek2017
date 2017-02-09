@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour
 {
     public int Energy = 3;
+    public int EnergyCap = 50;
     public float EnergyGainRate = 2.0f;
     public float EnergyTimer = 0;
     public float ReachDistance = 3.0f;
@@ -22,6 +23,8 @@ public class Player : MonoBehaviour
 
     public AudioClip placeSound;
     public AudioClip destroySound;
+    public AudioClip emptyEnergySound;
+    public AudioClip fullEnergySound;
     private AudioSource audSource;
 
     void Start()
@@ -55,6 +58,15 @@ public class Player : MonoBehaviour
                     CurrentBlock = VoxelType.Weak;
                 }
             }
+        }
+
+        if (Energy == 0)
+        {
+            PlayEnergyEmpty();
+        }
+        if (Energy == EnergyCap-1)
+        {
+            PlayEnergyFull();
         }
         GainEnergy();
     }
@@ -159,7 +171,7 @@ public class Player : MonoBehaviour
     void GainEnergy()
     {
         EnergyTimer -= Time.deltaTime;
-        if (EnergyTimer <= 0)
+        if (EnergyTimer <= 0 && Energy < EnergyCap)
         {
             Energy += 1;
             EnergyTimer = EnergyGainRate;
@@ -175,6 +187,18 @@ public class Player : MonoBehaviour
     void PlayDestroySound()
     {
         audSource.clip = destroySound;
+        audSource.Play();
+    }
+
+    void PlayEnergyEmpty()
+    {
+        audSource.clip = emptyEnergySound;
+        audSource.Play();
+    } 
+
+    void PlayEnergyFull()
+    {
+        audSource.clip = fullEnergySound;
         audSource.Play();
     }
 
