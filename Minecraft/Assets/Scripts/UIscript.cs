@@ -19,6 +19,9 @@ public class UIscript : MonoBehaviour
     public int playerminions;
     public int totalminions;
 
+    //power variable
+    public int power;
+
     // Use this for initialization
     void Start()
     {
@@ -44,6 +47,9 @@ public class UIscript : MonoBehaviour
         playerminions = 0;
         totalminions = 0;
 
+        //pwr variable
+        power = 0;
+
         //check # of towers and minions
         Gameplay[] controllist = FindObjectsOfType(typeof(Gameplay)) as Gameplay[];
         foreach (Gameplay control in controllist)
@@ -60,6 +66,11 @@ public class UIscript : MonoBehaviour
         }
 
         //check powerlevel
+        Player[] playerlist = FindObjectsOfType(typeof(Player)) as Player[];
+        foreach (Player play in playerlist)
+        {
+            power = play.Energy;
+        }
     }
 
     //GUI here
@@ -84,9 +95,12 @@ public class UIscript : MonoBehaviour
         }
 
         //onscreen towercount (temporary)
-        GUI.Label(new Rect(Screen.width / 2 - 50, 30, 500, 100), "Enemy: " + enemytowers + " Netural: " + neturaltowers + " Yours: " + playertowers);
+        GUI.Label(new Rect(Screen.width / 2 - 150, 30, 500, 100), "Enemy: " + enemytowers + " Netural: " + neturaltowers + " Yours: " + playertowers);
 
         //onscreen minioncount
-        GUI.Label(new Rect(Screen.width / 2 - 50, 60, 600, 100), "MINION COUNT -- Enemy: " + enemyminions + " Total: " + totalminions + " Yours: " + playerminions);
+        GUI.Label(new Rect(Screen.width / 2 - 200, 60, 600, 100), "MINION COUNT -- Enemy: " + enemyminions + " Total: " + totalminions + " Yours: " + playerminions);
+
+        //onscreen powerlevel
+        GUI.Label(new Rect(Screen.width / 2 - 50, 80, 100, 100), "BLOCK POWER:" + power);
     }
 }
