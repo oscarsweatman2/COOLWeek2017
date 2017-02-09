@@ -4,6 +4,11 @@ using System.Collections;
 [RequireComponent(typeof(CharacterController))]
 public class Minion : MonoBehaviour
 {
+    public enum Allegiance
+    {
+        RED,BLUE,NEUTRAL 
+    }
+
     [SerializeField]
     private float m_WalkSpeed;
     [SerializeField]
@@ -14,7 +19,7 @@ public class Minion : MonoBehaviour
     private float m_StickToGroundForce;
     [SerializeField]
     private float m_GravityMultiplier;
-    
+    public AudioSource m_minionhittower;
     public bool miniononplayerteam;
     private bool m_Jump;
     private Vector2 m_Input;
@@ -30,7 +35,11 @@ public class Minion : MonoBehaviour
     {
         m_CharacterController = GetComponent<CharacterController>();
         m_Jumping = false;
-        Target = get_tower().transform;
+        towerScript closestTower = get_tower();
+        if (closestTower != null)
+        {
+            Target = closestTower.transform;
+        }
 
 	}
     // targets tower
@@ -44,10 +53,10 @@ public class Minion : MonoBehaviour
         foreach(towerScript tower in towerlist)
         {
             bool opponettower = true;
-            bool toweronplayerteam = tower.m_allegiance > 0;
-            bool toweronneutralteam = tower.m_allegiance == 0;
-            bool toweronenemyteam = tower.m_allegiance < 0;
-            //tells mionion if on tower team
+            bool toweronplayerteam = tower.m_teamAllegiance == Allegiance.BLUE;
+            bool toweronneutralteam = tower.m_teamAllegiance == Allegiance.NEUTRAL;
+            bool toweronenemyteam = tower.m_teamAllegiance == Allegiance.RED;
+            //tells mionion if on tower team and targets that tower
             if (toweronplayerteam)
             {
                 if (miniononplayerteam)
@@ -104,7 +113,7 @@ public class Minion : MonoBehaviour
         if (closesttower_distance < 2)
         {
             GameObject.Destroy(this.gameObject);
-
+            closesttower.m_towerArmor -= 1;
         }
 
         // the jump state needs to read here to make sure it is not missed
@@ -162,10 +171,6 @@ public class Minion : MonoBehaviour
         }
         m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
 
-        //ProgressStepCycle(speed);
-        //UpdateCameraPosition(speed);
-
-        //m_MouseLook.UpdateCursorLock();
     }
 
     private void TurnTowardTarget(Vector3 target)
@@ -206,15 +211,7 @@ public class Minion : MonoBehaviour
             m_Input.Normalize();
         }
 
-        /*
-         //handle speed change to give an fov kick
-         only if the player is going to a run, is running and the fovkick is to be used
-        if (m_IsWalking != waswalking && m_UseFovKick && m_CharacterController.velocity.sqrMagnitude > 0)
-        {
-            StopAllCoroutines();
-            StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
-        }
-        */
+       
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -232,23 +229,5 @@ public class Minion : MonoBehaviour
         }
         body.AddForceAtPosition(m_CharacterController.velocity * 0.1f, hit.point, ForceMode.Impulse);
     }
-    /*
-    private void ProgressStepCycle(float speed)
-    {
-        if (m_CharacterController.velocity.sqrMagnitude > 0 && (m_Input.x != 0 || m_Input.y != 0))
-        {
-            m_StepCycle += (m_CharacterController.velocity.magnitude + (speed * (m_IsWalking ? 1f : m_RunstepLenghten))) *
-                         Time.fixedDeltaTime;
-        }
-
-        if (!(m_StepCycle > m_NextStep))
-        {
-            return;
-        }
-
-        m_NextStep = m_StepCycle + m_StepInterval;
-
-        PlayFootStepAudio();
-    }
-    */
+   
 }

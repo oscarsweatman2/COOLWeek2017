@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(AudioSource))]
 public class Player : MonoBehaviour
 {
     public int Energy = 3;
+    public int EnergyCap = 50;
     public float EnergyGainRate = 2.0f;
     public float EnergyTimer = 0;
     public float ReachDistance = 3.0f;
@@ -15,15 +17,23 @@ public class Player : MonoBehaviour
 
     public Texture Crosshair = null;
     public float CrosshairScale = 1.0f;
+    public int TowerBufferDist = 5;
 
     private VoxelType CurrentBlock = VoxelType.Weak;
 
-	void Start ()
+    public AudioClip placeSound;
+    public AudioClip destroySound;
+    public AudioClip emptyEnergySound;
+    public AudioClip fullEnergySound;
+    private AudioSource audSource;
+
+    void Start()
     {
         EnergyTimer = EnergyGainRate;
+        audSource = GetComponent<AudioSource>();
     }
-	
-	void Update ()
+
+    void Update()
     {
         if (Camera.main != null)
         {
@@ -49,11 +59,20 @@ public class Player : MonoBehaviour
                 }
             }
         }
+
+        if (Energy == 0)
+        {
+            PlayEnergyEmpty();
+        }
+        if (Energy == EnergyCap-1)
+        {
+            PlayEnergyFull();
+        }
         GainEnergy();
-	}
+    }
 
     void AttackBlock(Ray ray)
-    { 
+    {
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo, ReachDistance, ReachMask))
         {
@@ -70,6 +89,7 @@ public class Player : MonoBehaviour
                     {
                         voxel.TakeDamage(1);
                         Energy -= 1;
+                        PlayDestroySound();
                     }
                 }
             }
@@ -78,7 +98,6 @@ public class Player : MonoBehaviour
 
     void PlaceBlock(Ray ray, VoxelType type)
     {
-        
         if (type != VoxelType.Strong && type != VoxelType.Weak)
         {
             return;
@@ -109,14 +128,26 @@ public class Player : MonoBehaviour
                     if (VoxelWorld.Inst.IsVoxelWorldIndexValid(placePos.X, placePos.Y, placePos.Z))
                     {
                         Voxel placeVoxel = VoxelWorld.Inst.GetVoxel(placePos);
+                        Vector3 VoxelPos = new Vector3(placeVoxel.Position.X, placeVoxel.Position.Y, placeVoxel.Position.Z);
                         if (placeVoxel.TypeDef.Type == VoxelType.Air)
                         {
+                            towerScript[] towers = GameObject.FindObjectsOfType<towerScript>();
+                            for (int i = 0; i < towers.Length; i++)
+                            {
+                                towerScript tower = towers[i];
+                                float distanceToTower = (tower.transform.position - VoxelPos).magnitude;
+                                if (distanceToTower < TowerBufferDist)
+                                {
+                                    return;
+                                }
+                            }
                             if (type == VoxelType.Strong)
                             {
                                 if (Energy >= StrongCost)
                                 {
                                     placeVoxel.SetType(type);
                                     VoxelWorld.Inst.Refresh();
+                                    PlayPlaceSound();
                                     Energy -= StrongCost;
                                 }
                             }
@@ -126,6 +157,7 @@ public class Player : MonoBehaviour
                                 {
                                     placeVoxel.SetType(type);
                                     VoxelWorld.Inst.Refresh();
+                                    PlayPlaceSound();
                                     Energy -= WeakCost;
                                 }
                             }
@@ -139,11 +171,35 @@ public class Player : MonoBehaviour
     void GainEnergy()
     {
         EnergyTimer -= Time.deltaTime;
-        if (EnergyTimer <= 0)
+        if (EnergyTimer <= 0 && Energy < EnergyCap)
         {
             Energy += 1;
             EnergyTimer = EnergyGainRate;
         }
+    }
+
+    void PlayPlaceSound()
+    {
+        audSource.clip = placeSound;
+        audSource.Play();
+    } 
+
+    void PlayDestroySound()
+    {
+        audSource.clip = destroySound;
+        audSource.Play();
+    }
+
+    void PlayEnergyEmpty()
+    {
+        audSource.clip = emptyEnergySound;
+        audSource.Play();
+    } 
+
+    void PlayEnergyFull()
+    {
+        audSource.clip = fullEnergySound;
+        audSource.Play();
     }
 
     void OnGUI()

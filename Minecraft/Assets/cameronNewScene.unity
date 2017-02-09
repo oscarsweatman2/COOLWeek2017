@@ -91,90 +91,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &324236405 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 137080, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
-  m_PrefabInternal: {fileID: 1966992199}
---- !u!82 &324236408
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 324236405}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 581e6ef0a2604d74c988684aee17bed2, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!1001 &435836086
 Prefab:
   m_ObjectHideFlags: 0
@@ -256,9 +172,35 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114470935776621530, guid: 09d026873ffc29240befd49ef8d31073,
+        type: 2}
+      propertyPath: levelUpTimer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470935776621530, guid: 09d026873ffc29240befd49ef8d31073,
+        type: 2}
+      propertyPath: m_tower
+      value: 
+      objectReference: {fileID: 759567430}
+    - target: {fileID: 114470935776621530, guid: 09d026873ffc29240befd49ef8d31073,
+        type: 2}
+      propertyPath: m_allegiance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470935776621530, guid: 09d026873ffc29240befd49ef8d31073,
+        type: 2}
+      propertyPath: m_levelUpCount
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 09d026873ffc29240befd49ef8d31073, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &759567430 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114470935776621530, guid: 09d026873ffc29240befd49ef8d31073,
+    type: 2}
+  m_PrefabInternal: {fileID: 572738551}
+  m_Script: {fileID: 11500000, guid: dc252542c2d72a24fb1c62d19abdbe27, type: 3}
 --- !u!1001 &766409540
 Prefab:
   m_ObjectHideFlags: 0
@@ -459,18 +401,6 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 45.122
       objectReference: {fileID: 0}
-    - target: {fileID: 8200000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
-      propertyPath: spreadCustomCurve.m_RotationOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8200000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
-      propertyPath: BypassEffects
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8200000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
   m_IsPrefabParent: 0
@@ -583,6 +513,16 @@ Prefab:
     - target: {fileID: 4018707432305554, guid: 3cc42a680acd31c4ea0a3858bbf9a2e2, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114500955392545032, guid: 3cc42a680acd31c4ea0a3858bbf9a2e2,
+        type: 2}
+      propertyPath: m_allegiance
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114500955392545032, guid: 3cc42a680acd31c4ea0a3858bbf9a2e2,
+        type: 2}
+      propertyPath: m_levelUpCount
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3cc42a680acd31c4ea0a3858bbf9a2e2, type: 2}
@@ -698,7 +638,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Energy: 3
-  EnergyCap: 50
   EnergyGainRate: 2
   EnergyTimer: 0
   ReachDistance: 8
@@ -709,11 +648,6 @@ MonoBehaviour:
   WeakCost: 3
   Crosshair: {fileID: 2800000, guid: d099edcf434167b4682f0abc8eaa4223, type: 3}
   CrosshairScale: 3
-  TowerBufferDist: 5
-  placeSound: {fileID: 8300000, guid: e5c98f6aca3632c4789ccec9e0ad48a5, type: 3}
-  destroySound: {fileID: 8300000, guid: b8a8339374bce9b4d86d0c38e338c77f, type: 3}
-  emptyEnergySound: {fileID: 8300000, guid: 8a933de692047f14aa56166c3c31d758, type: 3}
-  fullEnergySound: {fileID: 8300000, guid: 8e31f25899f0dbe4e9c2a8caf06a08a8, type: 3}
 --- !u!1001 &1966992199
 Prefab:
   m_ObjectHideFlags: 0
