@@ -22,6 +22,10 @@ public class UIscript : MonoBehaviour
     //power variable
     public int power;
 
+    //did you win
+    public bool wongame;
+    public bool ongame;
+
     // Use this for initialization
     void Start()
     {
@@ -50,7 +54,7 @@ public class UIscript : MonoBehaviour
         //pwr variable
         power = 0;
 
-        //check # of towers and minions
+        //check # of towers and minions, also win status
         Gameplay[] controllist = FindObjectsOfType(typeof(Gameplay)) as Gameplay[];
         foreach (Gameplay control in controllist)
         {
@@ -63,6 +67,10 @@ public class UIscript : MonoBehaviour
             enemyminions = control.redminion;
             playerminions = control.blueminion;
             totalminions = control.totalminion;
+
+            // wincheck
+            wongame = control.win;
+            ongame = control.gameon;
         }
 
         //check powerlevel
@@ -76,7 +84,7 @@ public class UIscript : MonoBehaviour
     //GUI here
     private void OnGUI()
     {
-        //onscreen timer (the "if" statements are there for good lookin')
+        //onscreen timer code
         if (seconds >= 10 && minutes >= 10)
         {
             GUI.Label(new Rect(Screen.width / 2 - 50, 0, 100, 100), minutes + ":" + seconds);
@@ -102,5 +110,26 @@ public class UIscript : MonoBehaviour
 
         //onscreen powerlevel
         GUI.Label(new Rect(Screen.width / 2 - 50, 80, 100, 100), "BLOCK POWER:" + power);
+
+
+        //win/loss signal
+        if (ongame == false)
+        {
+
+            Time.timeScale = (float)0.0;
+
+            if (wongame == true)
+            {
+                GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height/2, 100, 100), "WINNER");
+            }
+            else
+            {
+                GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height / 2, 100, 100), "LOSER");
+            }
+        }
+        else
+        {
+            Time.timeScale = (float)1;
+        }
     }
 }
