@@ -94,7 +94,11 @@ public class Player : MonoBehaviour
                     if (Energy > 0)
                     {
                         voxel.TakeDamage(1);
-                        Energy -= 1;
+
+                        // Change this if we want to change if destroying blocks removes energy
+                        Energy += 1;
+
+
                         PlayDestroySound();
                     }
                 }
@@ -198,7 +202,6 @@ public class Player : MonoBehaviour
 
     void PlayEnergyEmpty()
     {
-        Debug.Log("Empty!");
         audSource.clip = emptyEnergySound;
         audSource.Play();
     } 
