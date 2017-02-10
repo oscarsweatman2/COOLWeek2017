@@ -2340,7 +2340,7 @@ MonoBehaviour:
   Energy: 3
   EnergyMax: 100
   EnergyCap: 100
-  EnergyGainRate: 1
+  EnergyGainRate: 0.7
   EnergyTimer: 0
   ReachDistance: 8
   ReachMask:
