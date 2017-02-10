@@ -23,10 +23,46 @@ public class towerScript : MonoBehaviour
     public GameObject[] blueMeshes = new GameObject[5];
     public GameObject neutralMesh;
 
+    public Material redFlagMaterial = null;
+    public Material blueFlagMaterial = null;
+    public Material neutralFlagMaterial = null;
+
     void Start()
     {
         spawnTimer = m_minionSpawnRate;
         levelUpTimer = m_levelUpCount;
+
+        //Setup flag material based on team
+        UpdateFlagMaterial();
+    }
+
+    void UpdateFlagMaterial()
+    {
+        MeshRenderer towerMeshRenderer = GetComponent<MeshRenderer>();
+        MeshRenderer[] myMeshRenderers = GetComponentsInChildren<MeshRenderer>();
+
+       for(int i = 0; i < myMeshRenderers.Length; ++i)
+        {
+            MeshRenderer meshRenderer = myMeshRenderers[i];
+
+            // Skip the mesh if it is the parent mesh (don't want to update the tower, just the flag)
+            if (towerMeshRenderer == meshRenderer)
+                continue;
+
+            switch(m_teamAllegiance)
+            {
+                case Minion.Allegiance.RED:
+                    meshRenderer.material = redFlagMaterial;
+                    break;
+                case Minion.Allegiance.BLUE:
+                    meshRenderer.material = blueFlagMaterial;
+                    break;
+                case Minion.Allegiance.NEUTRAL:
+                    meshRenderer.material = neutralFlagMaterial;
+                    break;
+            }
+            
+        }
     }
 
     // Update is called once per frame
@@ -116,6 +152,9 @@ public class towerScript : MonoBehaviour
             myMeshFilter.mesh = choice.GetComponent<MeshFilter>().sharedMesh;
             myMeshRenderer.materials = choice.GetComponent<MeshRenderer>().sharedMaterials;
         }
+
+        // Change the color of the tower's flag based on the current team
+        UpdateFlagMaterial();
     }
     public int getCurrentLevel()
     {
