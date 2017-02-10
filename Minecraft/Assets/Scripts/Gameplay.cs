@@ -66,13 +66,13 @@ public class Gameplay : MonoBehaviour
             }
 
             //player tower - keeps count up and has spawn rules
-            if (tower.m_teamAllegiance == Minion.Allegiance.RED)
+            if (tower.m_teamAllegiance == Minion.Allegiance.BLUE)
             {
                 playertowercount++;
             }
 
             //enemy tower code - keeps count up and has spawn rules
-            if (tower.m_teamAllegiance == Minion.Allegiance.BLUE)
+            if (tower.m_teamAllegiance == Minion.Allegiance.RED)
             {
                 enemytowercount++;
             }
