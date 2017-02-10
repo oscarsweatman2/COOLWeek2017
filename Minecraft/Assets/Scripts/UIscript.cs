@@ -183,16 +183,17 @@ public class UIscript : MonoBehaviour
         //win/loss signal
         if (ongame == false)
         {
-
             Time.timeScale = (float)0.0;
 
             if (wongame == true)
             {
-                GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height/2, 100, 100), "WINNER");
+                //GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height/2, 100, 100), "WINNER");
+                Application.LoadLevel("WinScreen");
             }
             else
             {
-                GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height / 2, 100, 100), "LOSER");
+                //GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height / 2, 100, 100), "LOSER");
+                Application.LoadLevel("LoseScreen");
             }
         }
         else
