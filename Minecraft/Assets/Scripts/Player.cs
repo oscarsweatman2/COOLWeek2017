@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour
 {
     public int Energy = 3;
+    private int EnergyLastFrame = 3;
     public int EnergyMax = 100;
     public int EnergyCap = 50;
     public float EnergyGainRate = 2.0f;
@@ -62,14 +63,17 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Energy == 0)
+        if (EnergyLastFrame != Energy && Energy == 0)
         {
             PlayEnergyEmpty();
         }
-        if (Energy == EnergyCap-1)
+        if (EnergyLastFrame != Energy && Energy == EnergyCap-1)
         {
             PlayEnergyFull();
         }
+
+        EnergyLastFrame = Energy;
+
         GainEnergy();
     }
 
@@ -194,6 +198,7 @@ public class Player : MonoBehaviour
 
     void PlayEnergyEmpty()
     {
+        Debug.Log("Empty!");
         audSource.clip = emptyEnergySound;
         audSource.Play();
     } 
