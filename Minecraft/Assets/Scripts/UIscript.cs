@@ -68,30 +68,24 @@ public class UIscript : MonoBehaviour
         power = 0;
 
         //check # of towers and minions, also win status
-        Gameplay[] controllist = FindObjectsOfType(typeof(Gameplay)) as Gameplay[];
-        foreach (Gameplay control in controllist)
-        {
-            //tower check
-            enemytowers = control.enemytowercount;
-            playertowers = control.playertowercount;
-            neturaltowers = control.neturaltowercount;
 
-            //minion check
-            enemyminions = control.redminion;
-            playerminions = control.blueminion;
-            totalminions = control.totalminion;
+        //tower check
+        enemytowers = Gameplay.enemytowercount;
+        playertowers = Gameplay.playertowercount;
+        neturaltowers = Gameplay.neturaltowercount;
 
-            // wincheck
-            wongame = control.win;
-            ongame = control.gameon;
-        }
+        //minion check
+        enemyminions = Gameplay.redminion;
+        playerminions = Gameplay.blueminion;
+        totalminions = Gameplay.totalminion;
+
+        // wincheck
+        wongame = Gameplay.win;
+        ongame = Gameplay.gameon;
+
 
         //check powerlevel
-        Player[] playerlist = FindObjectsOfType(typeof(Player)) as Player[];
-        foreach (Player play in playerlist)
-        {
-            power = play.Energy;
-        }
+        power = Player.Energy;
 
         // Update the energy meter UI
         float maxEnergyEver = Player.EnergyMax;
@@ -120,30 +114,50 @@ public class UIscript : MonoBehaviour
         }
 
         // Update tower boxes
-        List<towerScript> towerList = GameObject.FindObjectsOfType<towerScript>().ToList();
-        towerList.Sort((left, right) =>
+        List<towerScript> towers = towerScript.AllTowers.ToList();
+        towers.Sort((left, right) =>
         {
             if (left.m_teamAllegiance == right.m_teamAllegiance)
             {
-                // Calculate based on tower level
+                if (left.m_teamAllegiance == Minion.Allegiance.BLUE)
+                {
+                    // Blue towers are sorted strongest to weakest in the UI
+                    if (left.m_towerArmor < right.m_towerArmor)
+                        return 1;
+                    else if (left.m_towerArmor > right.m_towerArmor)
+                        return -1;
+                }
+                else if (left.m_teamAllegiance == Minion.Allegiance.RED)
+                {
+                    // Red towers are sorted weakest to strongest in the UI
+                    if (left.m_towerArmor < right.m_towerArmor)
+                        return -1;
+                    else if (left.m_towerArmor > right.m_towerArmor)
+                        return 1;
+                }
+
+                // All neutral towers or equivalent blue/red towers are equal
                 return 0;
             }
 
+            // If the towers aren't the same allegiance, blue towers are always first
             if (left.m_teamAllegiance == Minion.Allegiance.BLUE)
                 return -1;
             if (right.m_teamAllegiance == Minion.Allegiance.BLUE)
                 return 1;
 
+            // Next, neutral towers are first
             if (left.m_teamAllegiance == Minion.Allegiance.NEUTRAL)
                 return -1;
             if (right.m_teamAllegiance == Minion.Allegiance.NEUTRAL)
                 return 1;
 
+            // Should never occur
             return 0;
         });
 
         int towerIndex = 0;
-        foreach (towerScript tower in towerList)
+        foreach (towerScript tower in towers)
         {
             Transform towerBoxTransform = TowerBoxContainer.FindChild("TowerBox (" + towerIndex++ + ")");
             if (towerBoxTransform)
@@ -188,12 +202,12 @@ public class UIscript : MonoBehaviour
             if (wongame == true)
             {
                 //GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height/2, 100, 100), "WINNER");
-                Application.LoadLevel("WinScreen");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("WinScreen");
             }
             else
             {
                 //GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height / 2, 100, 100), "LOSER");
-                Application.LoadLevel("LoseScreen");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("LoseScreen");
             }
         }
         else

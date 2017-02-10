@@ -14,7 +14,7 @@ public class ChangeLevelScript : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.Return))
         {
-            Application.LoadLevel(levelName);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(levelName);
         }
 	}
 }

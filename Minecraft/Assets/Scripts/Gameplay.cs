@@ -41,8 +41,7 @@ public class Gameplay : MonoBehaviour
         totalminion = 0;
 
         //interact with Minions!
-        Minion[] minionlist = FindObjectsOfType(typeof(Minion)) as Minion[];
-        foreach (Minion minions in minionlist)
+        foreach (Minion minions in Minion.AllMinions)
         {
             totalminion++;
             if (minions.miniononplayerteam == true)
@@ -58,8 +57,7 @@ public class Gameplay : MonoBehaviour
         totalminion = redminion + blueminion;
 
         //interact with Towers!
-        towerScript[] towerlist = FindObjectsOfType(typeof(towerScript)) as towerScript[];
-        foreach (towerScript tower in towerlist)
+        foreach (towerScript tower in towerScript.AllTowers)
         {
             //netural tower
             if (tower.m_teamAllegiance == Minion.Allegiance.NEUTRAL)

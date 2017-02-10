@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 [RequireComponent(typeof(CharacterController))]
 public class Minion : MonoBehaviour
 {
+    public static List<Minion> AllMinions = new List<Minion>();
+
     public enum Allegiance
     {
         RED,BLUE,NEUTRAL 
@@ -30,17 +33,24 @@ public class Minion : MonoBehaviour
     private bool m_Jumping;
 
     public Transform Target;
-
-
+    
     public bool enableDeathTimer = false;
     public float totalLifeTime = 20.0f;
 
 	void Start ()
     {
+        AllMinions.Add(this);
+
         m_CharacterController = GetComponent<CharacterController>();
         m_Jumping = false;
+
         PickTarget();
 	}
+
+    private void OnDestroy()
+    {
+        AllMinions.Remove(this);
+    }
 
     void PickTarget()
     {
@@ -57,13 +67,11 @@ public class Minion : MonoBehaviour
         towerScript result = null;
         float closest_distance = 50000000;
         Vector3 myposition = transform.position;
-
-        towerScript[] towerlist = FindObjectsOfType(typeof(towerScript)) as towerScript[];
-        foreach(towerScript tower in towerlist)
+        
+        foreach(towerScript tower in towerScript.AllTowers)
         {
             bool opponettower = true;
             bool toweronplayerteam = tower.m_teamAllegiance == Allegiance.BLUE;
-            bool toweronneutralteam = tower.m_teamAllegiance == Allegiance.NEUTRAL;
             bool toweronenemyteam = tower.m_teamAllegiance == Allegiance.RED;
             //tells mionion if on tower team and targets that tower
             if (toweronplayerteam)
@@ -167,10 +175,10 @@ public class Minion : MonoBehaviour
         Vector3 desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
 
         // get a normal for the surface that is being touched to move along it
-        RaycastHit hitInfo;
-        Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
-                           m_CharacterController.height / 2f, ~0, QueryTriggerInteraction.Ignore);
-        desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
+        //RaycastHit hitInfo;
+        //Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
+        //                   m_CharacterController.height / 2f, ~0, QueryTriggerInteraction.Ignore);
+        //desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
 
         m_MoveDir.x = desiredMove.x * m_WalkSpeed;
         m_MoveDir.z = desiredMove.z * m_WalkSpeed;
@@ -207,11 +215,28 @@ public class Minion : MonoBehaviour
             return;
 
         float rightDotToTarget = Vector3.Dot(right, toTarget.normalized);
+        float fwdDotToTarget = Vector3.Dot(transform.forward, toTarget);
 
-        if (rightDotToTarget > 0.01f)
-            transform.Rotate(0, m_TurnSpeed * Time.deltaTime, 0);
-        else if (rightDotToTarget < -0.01f)
-            transform.Rotate(0, -m_TurnSpeed * Time.deltaTime, 0);
+        // If the target is in front of us
+        if (fwdDotToTarget > 0.0f)
+        {
+            // If the target is in front of us.... we want a small threshold
+            // where we don't turn at all.  Makes for smoother forward movement.
+            if (rightDotToTarget > 0.01f)
+                transform.Rotate(0, m_TurnSpeed * Time.deltaTime, 0);
+            else if (rightDotToTarget < -0.01f)
+                transform.Rotate(0, -m_TurnSpeed * Time.deltaTime, 0);
+        }
+        else
+        {
+            // Target is behind us
+            // Now we need to turn left or right, no place for a small threshold of no turning here.
+            // That behavior would make us 'stick' going forward if the target were directly behind us.
+            if (rightDotToTarget > 0.0f)
+                transform.Rotate(0, m_TurnSpeed * Time.deltaTime, 0);
+            else
+                transform.Rotate(0, -m_TurnSpeed * Time.deltaTime, 0);
+        }
     }
 
     private void GetInput()

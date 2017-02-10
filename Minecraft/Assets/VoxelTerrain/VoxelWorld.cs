@@ -32,6 +32,9 @@ public class VoxelWorld : MonoBehaviour
 
     public Dictionary<VoxelType, VoxelTypeDefinition> VoxelTypeDefs;
 
+    public Color TopMostTint = Color.white;
+    public Color BottomMostTint = Color.white;
+
     private VoxelWorldChunk[,,] Chunks = null;
 
     public int VoxelWidth   = 0;
@@ -70,6 +73,8 @@ public class VoxelWorld : MonoBehaviour
 
     public void InstantiateChunks()
     {
+        UnityEngine.Profiling.Profiler.BeginSample("InstantiateChunks");
+
         Chunks = new VoxelWorldChunk[ChunksWide, ChunksHigh, ChunksDeep];
 
         for (int x = 0; x < ChunksWide; ++x)
@@ -91,10 +96,14 @@ public class VoxelWorld : MonoBehaviour
                 }
             }
         }
+
+        UnityEngine.Profiling.Profiler.EndSample();
     }
 
     public void GenerateWorldVoxels(System.Action<Voxel> action)
     {
+        UnityEngine.Profiling.Profiler.BeginSample("GenerateWorldVoxels: " + action.ToString());
+
         for (int x = 0; x < ChunksWide; ++x)
         {
             for (int y = 0; y < ChunksHigh; ++y)
@@ -107,6 +116,8 @@ public class VoxelWorld : MonoBehaviour
                 }
             }
         }
+
+        UnityEngine.Profiling.Profiler.EndSample();
     }
 
     public void GenerateChunkVoxels(VoxelWorldChunk chunk, System.Action<Voxel> action)
@@ -167,13 +178,19 @@ public class VoxelWorld : MonoBehaviour
 
     public void Refresh()
     {
+        UnityEngine.Profiling.Profiler.BeginSample("VoxelWorld.Refresh");
+
         foreach (VoxelWorldChunk chunk in Chunks)
             if (chunk.IsDirty)
                 chunk.Refresh();
+
+        UnityEngine.Profiling.Profiler.EndSample();
     }
 
     public void UpdateExposedVoxels()
     {
+        UnityEngine.Profiling.Profiler.BeginSample("VoxelWorld.UpdateExposedVoxels");
+
         for (int x = 0; x < ChunksWide; ++x)
         {
             for (int y = 0; y < ChunksHigh; ++y)
@@ -184,6 +201,8 @@ public class VoxelWorld : MonoBehaviour
                 }
             }
         }
+
+        UnityEngine.Profiling.Profiler.EndSample();
     }
 
     public List<Voxel> GetVoxels(Vector3 center, float radius)

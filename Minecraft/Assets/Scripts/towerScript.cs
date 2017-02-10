@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class towerScript : MonoBehaviour
 {
+    public static List<towerScript> AllTowers = new List<towerScript>();
+
     // Use this for initialization
     public Minion.Allegiance m_teamAllegiance;
     public int m_minionSpawnNumber = 3;
@@ -29,11 +31,18 @@ public class towerScript : MonoBehaviour
 
     void Start()
     {
+        AllTowers.Add(this);
+
         spawnTimer = m_minionSpawnRate;
         levelUpTimer = m_levelUpCount;
 
         //Setup flag material based on team
         UpdateFlagMaterial();
+    }
+
+    private void OnDestroy()
+    {
+        AllTowers.Remove(this);
     }
 
     void UpdateFlagMaterial()
@@ -73,12 +82,11 @@ public class towerScript : MonoBehaviour
         if (spawnTimer <= 0)
         {
             spawnTimer = m_minionSpawnRate;
-
-            Minion[] minionlist = GameObject.FindObjectsOfType<Minion>();
+            
             List<Minion> enemyMinionList = new List<Minion>();
             List<Minion> playerMinionList = new List<Minion>();
 
-            foreach (Minion minion in minionlist)
+            foreach (Minion minion in Minion.AllMinions)
             {
                 if (minion.miniononplayerteam)
                 {
@@ -91,12 +99,11 @@ public class towerScript : MonoBehaviour
             }
             for (int i = 0; i < m_minionSpawnNumber; i++)
             {
-                //int minionNum = GameObject.FindObjectsOfType<Minion>().Length;
                 if (m_teamAllegiance == Minion.Allegiance.BLUE)
                 {
                     if (m_blueMinion != null && Gameplay.Inst.canSpawnMinion(m_teamAllegiance))
                     {
-                        Minion spawnedBlueMinion = GameObject.Instantiate(m_blueMinion, this.transform.position + new Vector3(Random.Range(1, 10), Random.Range(1, 5), 0), Quaternion.identity);
+                        GameObject.Instantiate(m_blueMinion, this.transform.position + new Vector3(Random.Range(1, 10), Random.Range(1, 5), 0), Quaternion.identity);
                         Gameplay.Inst.notifyOfNewSpawn(m_teamAllegiance);
                     }
                 }
@@ -104,7 +111,7 @@ public class towerScript : MonoBehaviour
                 {
                     if (m_redMinion != null && Gameplay.Inst.canSpawnMinion(m_teamAllegiance))
                     {
-                        Minion spawnedRedMinion = GameObject.Instantiate(m_redMinion, this.transform.position + new Vector3(Random.Range(1, 10), Random.Range(1, 5), 0), Quaternion.identity);
+                        GameObject.Instantiate(m_redMinion, this.transform.position + new Vector3(Random.Range(1, 10), Random.Range(1, 5), 0), Quaternion.identity);
                         Gameplay.Inst.notifyOfNewSpawn(m_teamAllegiance);
                     }
                 }
