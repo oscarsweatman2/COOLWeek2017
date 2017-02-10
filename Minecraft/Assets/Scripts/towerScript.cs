@@ -21,8 +21,8 @@ public class towerScript : MonoBehaviour
 
 
     // Mesh types
-    public GameObject[] redMeshes = new GameObject[5];
-    public GameObject[] blueMeshes = new GameObject[5];
+    public GameObject[] redMeshes = new GameObject[3];
+    public GameObject[] blueMeshes = new GameObject[3];
     public GameObject neutralMesh;
 
     public Material redFlagMaterial = null;
@@ -103,7 +103,7 @@ public class towerScript : MonoBehaviour
                 {
                     if (m_blueMinion != null && Gameplay.Inst.canSpawnMinion(m_teamAllegiance))
                     {
-                        GameObject.Instantiate(m_blueMinion, this.transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5)), Quaternion.identity);
+                        GameObject.Instantiate(m_blueMinion, this.transform.position + new Vector3(Random.Range(-3, 3), 0, Random.Range(-3, 3)), Quaternion.identity);
                         Gameplay.Inst.notifyOfNewSpawn(m_teamAllegiance);
                     }
                 }
@@ -111,7 +111,7 @@ public class towerScript : MonoBehaviour
                 {
                     if (m_redMinion != null && Gameplay.Inst.canSpawnMinion(m_teamAllegiance))
                     {
-                        GameObject.Instantiate(m_redMinion, this.transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5)), Quaternion.identity);
+                        GameObject.Instantiate(m_redMinion, this.transform.position + new Vector3(Random.Range(-3, 3), 0, Random.Range(-3, 3)), Quaternion.identity);
                         Gameplay.Inst.notifyOfNewSpawn(m_teamAllegiance);
                     }
                 }
@@ -138,7 +138,7 @@ public class towerScript : MonoBehaviour
             m_towerArmor += 5;
 
             // Clamp tower armor if it is too high
-            int maxTowerLevel = 5;
+            int maxTowerLevel = 3;
             int towerArmorPerLevel = 5;
             int maxTowerArmorLevel = (maxTowerLevel * towerArmorPerLevel) - 1;
             if (m_towerArmor > maxTowerArmorLevel)
