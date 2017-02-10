@@ -16,7 +16,12 @@ public class towerScript : MonoBehaviour
     public int m_towerArmor = 5;
     public float levelUpTimer = 2;
     public int m_levelUpCount = 1;
-    
+
+
+    // Mesh types
+    public GameObject[] redMeshes = new GameObject[5];
+    public GameObject[] blueMeshes = new GameObject[5];
+    public GameObject neutralMesh;
 
     void Start()
     {
@@ -77,35 +82,53 @@ public class towerScript : MonoBehaviour
     }
     void levelUp()
     {
+        MeshFilter myMeshFilter = GetComponent<MeshFilter>();
+        MeshRenderer myMeshRenderer = GetComponent<MeshRenderer>();
+
+        GameObject[] teamMeshArray = (m_teamAllegiance == Minion.Allegiance.RED) ? redMeshes : blueMeshes;
+
+        // Increase tower armor
         if (m_teamAllegiance != Minion.Allegiance.NEUTRAL)
         {
             m_towerArmor += 5;
+
+            // Clamp tower armor if it is too high
+            int maxTowerLevel = 5;
+            int towerArmorPerLevel = 5;
+            int maxTowerArmorLevel = (maxTowerLevel * towerArmorPerLevel) - 1;
+            if (m_towerArmor > maxTowerArmorLevel)
+            {
+                m_towerArmor = maxTowerArmorLevel;
+            }
         }
-        int curLevel = getCurrentLevel();
-        if (curLevel == 1)
+
+        // Change mesh for tower based on level and current team
+        if (m_teamAllegiance == Minion.Allegiance.NEUTRAL)
         {
-            this.transform.localScale = new Vector3(1, 1, 1);
+            myMeshFilter.mesh = neutralMesh.GetComponent<MeshFilter>().sharedMesh;
+            myMeshRenderer.materials = neutralMesh.GetComponent<MeshRenderer>().sharedMaterials;
         }
-        if (curLevel == 2)
+        else
         {
-            this.transform.localScale = new Vector3(2, 2, 2);
-        }
-        if (curLevel == 3)
-        {
-            this.transform.localScale = new Vector3(3, 3, 3);
-        }
-        if (curLevel == 4)
-        {
-            this.transform.localScale = new Vector3(4, 4, 4);
-        }
-        if (curLevel == 5)
-        {
-            this.transform.localScale = new Vector3(5, 5, 5);
+            int curLevel = getCurrentLevel();
+            GameObject choice = teamMeshArray[curLevel - 1];
+
+            myMeshFilter.mesh = choice.GetComponent<MeshFilter>().sharedMesh;
+            myMeshRenderer.materials = choice.GetComponent<MeshRenderer>().sharedMaterials;
         }
     }
     public int getCurrentLevel()
     {
-        return m_towerArmor / 5 + 1;
+        if (m_towerArmor <= 5)
+            return 1;
+        else if (m_towerArmor <= 10)
+            return 2;
+        else if (m_towerArmor <= 15)
+            return 3;
+        else if (m_towerArmor <= 20)
+            return 4;
+        else
+            return 5;
     }
 
     public int getMaxTowerArmor()

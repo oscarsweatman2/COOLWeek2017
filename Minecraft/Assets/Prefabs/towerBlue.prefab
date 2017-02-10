@@ -81,7 +81,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1952829039133460}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 619ddbeb93fd7d74cb7829e99d79411c, type: 3}
 --- !u!114 &114397192133280390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -117,6 +117,20 @@ MonoBehaviour:
   m_towerArmor: 5
   levelUpTimer: 0
   m_levelUpCount: 10
+  redMeshes:
+  - {fileID: 1623472014859370, guid: 37b72c9b84dd4ae45a6c2ab7fca5920a, type: 2}
+  - {fileID: 1319048449508288, guid: 9ddfe3a1d55fa5346a5a9ba4ce4ec7e0, type: 2}
+  - {fileID: 1005115824035852, guid: d0faff699b834304eb1954d48d5be774, type: 2}
+  - {fileID: 1875862068781204, guid: 8e617b6a09aa83944ab80cb5e03e3f8e, type: 2}
+  - {fileID: 1766264815503820, guid: e364c96416b4ce04f9eb219c444a2b66, type: 2}
+  blueMeshes:
+  - {fileID: 1623472014859370, guid: 37b72c9b84dd4ae45a6c2ab7fca5920a, type: 2}
+  - {fileID: 1121921393280030, guid: ec35d81d2df49744f81159fd6a9e29ce, type: 2}
+  - {fileID: 1005115824035852, guid: d0faff699b834304eb1954d48d5be774, type: 2}
+  - {fileID: 1719593564655060, guid: e83e524b5dc7bc3448802fd2d2126609, type: 2}
+  - {fileID: 1754846294194266, guid: 3a6cf978365b767418f39c943a344e6c, type: 2}
+  neutralMesh: {fileID: 1623472014859370, guid: 37b72c9b84dd4ae45a6c2ab7fca5920a,
+    type: 2}
 --- !u!136 &136369427132836268
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -126,7 +140,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 1
+  m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

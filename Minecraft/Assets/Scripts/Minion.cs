@@ -35,13 +35,18 @@ public class Minion : MonoBehaviour
     {
         m_CharacterController = GetComponent<CharacterController>();
         m_Jumping = false;
+        PickTarget();
+	}
+
+    void PickTarget()
+    {
         towerScript closestTower = get_tower();
         if (closestTower != null)
         {
             Target = closestTower.transform;
         }
+    }
 
-	}
     // targets tower
     towerScript get_tower()
     {
@@ -101,6 +106,8 @@ public class Minion : MonoBehaviour
     }
 	void Update ()
     {
+        PickTarget();
+
         //RotateView(); 
         Vector3 targetPos = Target != null ? Target.position : Vector3.zero;
         TurnTowardTarget(targetPos);
