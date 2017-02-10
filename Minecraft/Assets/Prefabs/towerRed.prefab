@@ -200,7 +200,7 @@ MonoBehaviour:
   - {fileID: 1121921393280030, guid: ec35d81d2df49744f81159fd6a9e29ce, type: 2}
   - {fileID: 1623472014859370, guid: 37b72c9b84dd4ae45a6c2ab7fca5920a, type: 2}
   - {fileID: 1719593564655060, guid: e83e524b5dc7bc3448802fd2d2126609, type: 2}
-  neutralMesh: {fileID: 1121921393280030, guid: ec35d81d2df49744f81159fd6a9e29ce,
+  neutralMesh: {fileID: 1600935663092944, guid: f2a3236887703784eb41a8a382c00e22,
     type: 2}
   redFlagMaterial: {fileID: 2100000, guid: 2d69ac46042f72b4fb09f259704e2d44, type: 2}
   blueFlagMaterial: {fileID: 2100000, guid: 66143674bd3368c4087083c6f1749325, type: 2}
