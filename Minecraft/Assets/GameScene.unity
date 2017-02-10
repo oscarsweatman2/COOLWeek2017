@@ -2330,7 +2330,7 @@ MonoBehaviour:
   WeakCost: 3
   Crosshair: {fileID: 2800000, guid: d099edcf434167b4682f0abc8eaa4223, type: 3}
   CrosshairScale: 3
-  TowerBufferDist: 5
+  TowerBufferDist: 2
   placeSound: {fileID: 8300000, guid: e5c98f6aca3632c4789ccec9e0ad48a5, type: 3}
   destroySound: {fileID: 8300000, guid: b8a8339374bce9b4d86d0c38e338c77f, type: 3}
   emptyEnergySound: {fileID: 8300000, guid: 5a7881975db93d7438dc7238ed10434e, type: 3}
@@ -2749,15 +2749,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: BottomMostTint.r
-      value: 0
+      value: 0.35294116
       objectReference: {fileID: 0}
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: BottomMostTint.g
-      value: 0
+      value: 0.35294116
       objectReference: {fileID: 0}
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: BottomMostTint.b
-      value: 0
+      value: 0.35294116
       objectReference: {fileID: 0}
     - target: {fileID: 11473868, guid: befea312ba20e2b47bdde9fe72f54f68, type: 2}
       propertyPath: VoxelTypeDefWeak.UVTopY
