@@ -38,6 +38,7 @@ public class UIscript : MonoBehaviour
     public Text TimerText = null;
 
     public Transform TowerBoxContainer = null;
+    public Text EnergyText = null;
 
     // Use this for initialization
     void Start()
@@ -94,6 +95,9 @@ public class UIscript : MonoBehaviour
 
         EnergyMeterMax.localScale = new Vector3(EnergyMeterMax.localScale.x, EnergyMaxScaleValue * curMaxEnergyRatio);
         EnergyMeterCurrent.localScale = new Vector3(EnergyMeterCurrent.localScale.x, EnergyMaxScaleValue * curEnergyRatio);
+
+        // Show the amount of energy
+        EnergyText.text = Player.Energy.ToString();
 
         // Update the game timer UI
         if (seconds >= 10 && minutes >= 10)
@@ -183,7 +187,7 @@ public class UIscript : MonoBehaviour
     //GUI here
     private void OnGUI()
     {
-
+        /*
         //onscreen towercount (temporary)
         GUI.Label(new Rect(Screen.width / 2 - 150, 30, 500, 100), "Enemy: " + enemytowers + " Netural: " + neturaltowers + " Yours: " + playertowers);
 
@@ -192,7 +196,7 @@ public class UIscript : MonoBehaviour
 
         //onscreen powerlevel
         GUI.Label(new Rect(Screen.width / 2 - 50, 80, 100, 100), "BLOCK POWER:" + power);
-
+        */
 
         //win/loss signal
         if (ongame == false)

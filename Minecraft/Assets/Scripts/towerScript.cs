@@ -103,7 +103,7 @@ public class towerScript : MonoBehaviour
                 {
                     if (m_blueMinion != null && Gameplay.Inst.canSpawnMinion(m_teamAllegiance))
                     {
-                        GameObject.Instantiate(m_blueMinion, this.transform.position + new Vector3(Random.Range(1, 10), Random.Range(1, 5), 0), Quaternion.identity);
+                        GameObject.Instantiate(m_blueMinion, this.transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5)), Quaternion.identity);
                         Gameplay.Inst.notifyOfNewSpawn(m_teamAllegiance);
                     }
                 }
@@ -111,7 +111,7 @@ public class towerScript : MonoBehaviour
                 {
                     if (m_redMinion != null && Gameplay.Inst.canSpawnMinion(m_teamAllegiance))
                     {
-                        GameObject.Instantiate(m_redMinion, this.transform.position + new Vector3(Random.Range(1, 10), Random.Range(1, 5), 0), Quaternion.identity);
+                        GameObject.Instantiate(m_redMinion, this.transform.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5)), Quaternion.identity);
                         Gameplay.Inst.notifyOfNewSpawn(m_teamAllegiance);
                     }
                 }

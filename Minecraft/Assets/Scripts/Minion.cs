@@ -166,6 +166,12 @@ public class Minion : MonoBehaviour
                 return;
             }
         }
+
+        // Hack fix for minions falling out of the world, kill them
+        if(this.transform.position.y < 0)
+        {
+            GameObject.Destroy(this.gameObject);
+        }
     }
 
     private void FixedUpdate()
