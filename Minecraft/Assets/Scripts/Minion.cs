@@ -270,6 +270,22 @@ public class Minion : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        // Make enemy minions do damage to blocks
+        if(!miniononplayerteam && hit.collider != null && hit.collider is BoxCollider)
+        {
+            Voxel voxel = VoxelWorld.Inst.GetVoxelFromCollider(hit.collider as BoxCollider);
+
+            if (voxel != null)
+            {
+                if (voxel.TypeDef.Type == VoxelType.Weak || voxel.TypeDef.Type == VoxelType.Strong)
+                {
+                    voxel.TakeDamage(1);
+                    GameObject.Destroy(this.gameObject);
+                }
+            }
+        }
+
+        /*
         Rigidbody body = hit.collider.attachedRigidbody;
         //dont move the rigidbody if the character is on top of it
         if (m_CollisionFlags == CollisionFlags.Below)
@@ -282,6 +298,6 @@ public class Minion : MonoBehaviour
             return;
         }
         body.AddForceAtPosition(m_CharacterController.velocity * 0.1f, hit.point, ForceMode.Impulse);
+        */
     }
-   
 }
