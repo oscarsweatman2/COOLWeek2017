@@ -93,10 +93,10 @@ public class Player : MonoBehaviour
                 {
                     if (Energy > 0)
                     {
-                        voxel.TakeDamage(1);
+                        voxel.TakeDamage(1000);
 
                         // Change this if we want to change if destroying blocks removes energy
-                        Energy -= 1;
+                        Energy += 1;
 
                         PlayDestroySound();
                     }
