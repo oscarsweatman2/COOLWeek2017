@@ -103,6 +103,8 @@ MonoBehaviour:
   m_minionhittower: {fileID: 0}
   miniononplayerteam: 1
   Target: {fileID: 0}
+  enableDeathTimer: 0
+  totalLifeTime: 20
 --- !u!114 &114523561737754782
 MonoBehaviour:
   m_ObjectHideFlags: 1

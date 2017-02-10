@@ -100,7 +100,11 @@ MonoBehaviour:
   m_JumpSpeed: 5
   m_StickToGroundForce: 0.2
   m_GravityMultiplier: 1
+  m_minionhittower: {fileID: 0}
+  miniononplayerteam: 0
   Target: {fileID: 0}
+  enableDeathTimer: 0
+  totalLifeTime: 20
 --- !u!114 &114981503203831272
 MonoBehaviour:
   m_ObjectHideFlags: 1

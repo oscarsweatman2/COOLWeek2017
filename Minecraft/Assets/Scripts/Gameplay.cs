@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Gameplay : MonoBehaviour
 {
+    public static Gameplay Inst;
+
     //MINON CONTROL VARIABLES
     public int redminion = 0;
     public int blueminion = 0;
@@ -22,6 +24,8 @@ public class Gameplay : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Inst = this;
+
         gameon = true;
     }
 
@@ -93,7 +97,7 @@ public class Gameplay : MonoBehaviour
 
     //any code after this is <<outside>> of "Update"
 
-    bool canSpawnMinion (Minion.Allegiance allegiance)
+    public bool canSpawnMinion (Minion.Allegiance allegiance)
     {
         if (allegiance == Minion.Allegiance.RED)
         {
@@ -120,5 +124,15 @@ public class Gameplay : MonoBehaviour
         }
 
         return false;
+    }
+
+    // Tell the Gameplay script that a new minion was added
+    // This handles the case where a minion is added in between Update() calls
+    public void notifyOfNewSpawn(Minion.Allegiance allegiance)
+    {
+        if (allegiance == Minion.Allegiance.RED)
+            redminion++;
+        else if (allegiance == Minion.Allegiance.BLUE)
+            blueminion++;
     }
 }

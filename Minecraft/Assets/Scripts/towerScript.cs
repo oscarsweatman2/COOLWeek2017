@@ -94,16 +94,18 @@ public class towerScript : MonoBehaviour
                 //int minionNum = GameObject.FindObjectsOfType<Minion>().Length;
                 if (m_teamAllegiance == Minion.Allegiance.BLUE)
                 {
-                    if (m_blueMinion != null)
+                    if (m_blueMinion != null && Gameplay.Inst.canSpawnMinion(m_teamAllegiance))
                     {
                         Minion spawnedBlueMinion = GameObject.Instantiate(m_blueMinion, this.transform.position + new Vector3(Random.Range(1, 10), Random.Range(1, 5), 0), Quaternion.identity);
+                        Gameplay.Inst.notifyOfNewSpawn(m_teamAllegiance);
                     }
                 }
                 else if (m_teamAllegiance == Minion.Allegiance.RED)
                 {
-                    if (m_redMinion != null)
+                    if (m_redMinion != null && Gameplay.Inst.canSpawnMinion(m_teamAllegiance))
                     {
                         Minion spawnedRedMinion = GameObject.Instantiate(m_redMinion, this.transform.position + new Vector3(Random.Range(1, 10), Random.Range(1, 5), 0), Quaternion.identity);
+                        Gameplay.Inst.notifyOfNewSpawn(m_teamAllegiance);
                     }
                 }
             }

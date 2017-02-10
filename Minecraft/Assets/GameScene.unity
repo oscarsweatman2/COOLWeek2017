@@ -904,8 +904,8 @@ MonoBehaviour:
   redminion: 0
   blueminion: 0
   totalminion: 0
-  maxred: 70
-  maxblue: 70
+  maxred: 20
+  maxblue: 20
   enemytowercount: 0
   playertowercount: 0
   neturaltowercount: 0

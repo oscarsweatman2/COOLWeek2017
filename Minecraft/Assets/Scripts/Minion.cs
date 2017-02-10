@@ -31,6 +31,10 @@ public class Minion : MonoBehaviour
 
     public Transform Target;
 
+
+    public bool enableDeathTimer = false;
+    public float totalLifeTime = 20.0f;
+
 	void Start ()
     {
         m_CharacterController = GetComponent<CharacterController>();
@@ -142,7 +146,19 @@ public class Minion : MonoBehaviour
         }
 
         m_PreviouslyGrounded = m_CharacterController.isGrounded;
-	}
+
+        // Optionally kill minions if enough time has passed
+        if (enableDeathTimer)
+        {
+            totalLifeTime -= Time.deltaTime;
+
+            if (totalLifeTime <= 0.0f)
+            {
+                GameObject.Destroy(this.gameObject);
+                return;
+            }
+        }
+    }
 
     private void FixedUpdate()
     {
