@@ -126,13 +126,16 @@ public class Minion : MonoBehaviour
 
         towerScript closesttower = get_tower();
 
-        //distance to tower that would destroy sheep
-        float closesttower_distance = (closesttower.transform.position - this.transform.position).magnitude;
-
-        if (closesttower_distance < 3)
+        if (closesttower != null)
         {
-            GameObject.Destroy(this.gameObject);
-            closesttower.towerHasBeenAttacked(this);
+            //distance to tower that would destroy sheep
+            float closesttower_distance = (closesttower.transform.position - this.transform.position).magnitude;
+
+            if (closesttower_distance < 3)
+            {
+                GameObject.Destroy(this.gameObject);
+                closesttower.towerHasBeenAttacked(this);
+            }
         }
 
         // the jump state needs to read here to make sure it is not missed

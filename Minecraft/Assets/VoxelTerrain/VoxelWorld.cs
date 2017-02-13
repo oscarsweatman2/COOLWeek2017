@@ -305,6 +305,9 @@ public class VoxelWorld : MonoBehaviour
             return null;
 
         VoxelWorldChunk chunk = collider.gameObject.GetComponent<VoxelWorldChunk>();
+        if (chunk == null)
+            return null;
+
         return chunk.GetVoxelFromCollider(collider);
     }
 
